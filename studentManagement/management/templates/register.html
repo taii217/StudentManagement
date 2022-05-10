@@ -1,41 +1,47 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="{% urls 'login' %}">
-</head>
-<body>
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css\register.css' %}">
 
-<form action="/action_page.php" class="login" method="post">
+<form action="" class="register" method="post">
   <div class="imgcontainer">
-    <img src="thunderDuck.jpeg" alt="Avatar" class="avatar">
+    <img src="{% static 'images\thunderDuck.jpeg' %}" alt="Avatar" class="avatar">
     <h3>Thunder Ducks</h3>
   </div>
 
-  <div class="container">
+  <div class="form-group">
+    <label for="email"><b>Email</b></label>
+    <input type="email" class="form-control" id="eInputEmail1" placeholder="Enter email">
+  </div>
+  
+  <div class="form-group">
     <label for="uname"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="uname" required>
-
-    <label for="psw"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="psw" required>
+    <input type="text" class="form-control" id="InputUser1" placeholder="Enter Username">
+  </div>
     
-    <label for="psw-re"><b>Repeat password</b></label>
-    <input type="password" placeholder="Re Password " name="psw-re" required>
-
-    <label for="psw-re"><b>Repeat password</b></label>
-    <input type="password" placeholder="Re Password " name="psw-re" required>
-    
-    <select class="select">
-        <option value="1" disabled>Choose option</option>
-        <option value="2">Teacher</option>
-        <option value="3">Student</option>
-      </select>
+  <div class="form-group">
+    <label for="psw"><b>Repeat password</b></label>
+    <input type="password" class="form-control" id="InputPass1" placeholder="Enter pass">
   </div>
 
-  <div class="container" style="background-color:#f1f1f1">
-    <button type="button" class="btn-signup">Sign Up</button>
+  <div class="form-group">
+    <label for="psw-re"><b>Repeat password</b></label>
+    <input type="password" class="form-control" id="InputPass2" placeholder="Repeat pass">
   </div>
+    
+  <div class="form-group">
+    <label for="Role"><b>Role</b></label>
+    <select class="form-control" aria-label=".form-select-sm example">
+      <option selected>---Subject---</option>
+      <option value="1">Teacher</option>
+      <option value="2">Student</option>
+      <option value="3">Admin</option>
+    </select>
+  </div>
+    
+  <div class="form-group row">
+    <button type="submit" class="btn btn-primary" id ="submit-register" >Register</button>
+  </div>
+  
 </form>
-
-</body>
-</html>
+{% endblock %}
