@@ -1,111 +1,89 @@
-<!doctype html>
-<html lang="en">
-  <head>
-  	<title>View Rules</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css\rules.css' %}">
 
-	<link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
-
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-	
-	<link rel="stylesheet" href="css/style.css">
-
-	</head>
-	<body>
-	<section class="ftco-section">
-		<div class="container">
-			<div class="row justify-content-center">
-				<div class="col-md-3 text-center mb-4">
-					<h2 class="heading-section">RULES</h2>
-				</div>
+<section class="ftco-section">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-3 text-center mb-4">
+				<h2 class="heading-section">RULES</h2>
 			</div>
-			<div class="row">
-				<div class="col-md-12">
-					<h3 class="h5 mb-4 text-center">Table Rules</h3>
-					<div class="table-wrap">
-						<table class="table">
-						  <thead class="thead-primary">
-						    <tr>
-						    	
+		</div>
+		<div class="row">
+			<div class="col-md-12">
+				<h3 class="h5 mb-4 text-center">Table Rules</h3>
+				<div class="table-wrap">
+					<table class="table table-dark table-bordered table-hover">
+						<thead class="thead-primary">
+							<tr class="table-active">
 								<th>N.O</th>
-						    	<th>Information</th>
-						      	<th>Change</th>
-						      	
-						    </tr>
-						  </thead>
-						  <tbody>
-						    <tr class="alert" role="alert">
-						    	<td>
-						    		<span> 1 </span>
-						    	</td>
-						      <td>
-						      		<span> Student age from 15 to 20. </span>
-						      </td>
-						      <td>
-								<span> + </span>
-								</td>					
-						    </tr>
-
-						    <tr class="alert" role="alert">
-						    	<td>
-						    		<span> 2 </span>
-						    	</td>
-						      <td>
-									<span> There are 3 grade (10,11,12).Each class should not exceed 40 students. </span>
-						      </td>
-							  <td>
-								<span> + </span>
-								</td>					
-						    </tr>
+								<th>Information</th>
+								<th>Change</th>
+							</tr>
+						</thead>
+						<tbody>
 							<tr class="alert" role="alert">
-						    	<td>
-						    		<span> 3 </span>
-						    	</td>
-						      <td>
+								<td>
+									<span> 1 </span>
+								</td>
+								<td>
+									<span> Student age from 15 to 20. </span>
+								</td>
+								<td>
+									<span> + </span>
+								</td>
+							</tr>
+							<tr class="alert" role="alert">
+								<td>
+									<span> 2 </span>
+								</td>
+								<td>
+									<span> There are 3 grade (10,11,12).Each class should not exceed 40 students.
+									</span>
+								</td>
+								<td>
+									<span> + </span>
+								</td>
+							</tr>
+							<tr class="alert" role="alert">
+								<td>
+									<span> 3 </span>
+								</td>
+								<td>
 									<span> There are 2 semesters (1,2). There are 9 subjects. </span>
-						      </td>
-							  <td>
-								<span> + </span>
-								</td>					
-						    </tr>
+								</td>
+								<td>
+									<span> + </span>
+								</td>
+							</tr>
 							<tr class="alert" role="alert">
-						    	<td>
-						    		<span> 4 </span>
-						    	</td>
-						      <td>
+								<td>
+									<span> 4 </span>
+								</td>
+								<td>
 									<span> Student pass the subjects if they have GPA>=5. </span>
-						      </td>
-							  <td>
-								<span> + </span>
-								</td>					
-						    </tr>
-							
-						    
-						    <tr class="alert" role="alert">
-						    	
-						    	<td>
-						    		<span> 5</span>
-						    	</td>
+								</td>
+								<td>
+									<span> + </span>
+								</td>
+							</tr>
+							<tr class="alert" role="alert">
+								<td>
+									<span>5</span>
+								</td>
 								<td>
 									<span> Change other rules. </span>
-						     	</td>
-						      <td class="border-bottom-0">+</td>
-				          </td>				         
-						    </tr>
-						  </tbody>
-						</table>
-					</div>
+								</td>
+								<td class="border-bottom-0">+</td>
+								</td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
 		</div>
-	</section>
-
-	<script src="js/jquery.min.js"></script>
-  <script src="js/popper.js"></script>
-  <script src="js/bootstrap.min.js"></script>
-  <script src="js/main.js"></script>
-
-	</body>
-</html>
+	</div>
+</section>
+{% endblock %}
 
