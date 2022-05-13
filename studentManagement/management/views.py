@@ -17,3 +17,11 @@ def register(request):
 def rules(request):
     return render(request,'viewRules.html')
  
+def insert_grade(request):
+    return render(request, 'insert_grade.html')
+
+def subject_summary(request):
+    return render(request, 'subject_summary.html')
+
+def final_summary(request):
+    return render(request, 'final_summary.html')
