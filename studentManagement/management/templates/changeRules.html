@@ -12,7 +12,7 @@
 		</div>
 		<div class="row">
 			<div class="col-md-12">
-				<h3 class="h5 mb-4 text-center">View Rules</h3>
+				<h3 class="h5 mb-4 text-center">Change Rules</h3>
 				<div class="table-wrap">
 					<table class="table table-dark table-bordered table-hover">
 						<thead class="thead-primary">
@@ -28,10 +28,14 @@
 									<span> 1 </span>
 								</td>
 								<td>
-									<span> Student age from 15 to 20. </span>
+									<span> Minimum age </span>
+                                    <input type="number">
+									<span> Maximum age </span>
+                                    <input type="number">
+
 								</td>
 								<td>
-									<a href="/change_rules">Change</a>
+									<input type="submit" value="+">
 								</td>
 							</tr>
 							<tr class="alert" role="alert">
@@ -39,11 +43,16 @@
 									<span> 2 </span>
 								</td>
 								<td>
-									<span> There are 3 grade (10,11,12).Each class should not exceed 40 students.
-									</span>
+									<span> Maximum class size </span>
+                                    <input type="number">
+									<span> Number of classes </span>
+                                    <input type="number">
+									<span> Name of classes </span>
+                                    <input type="text"  maxlength="5" size=7>
+
 								</td>
 								<td>
-									<a href="/change_rules">Change</a>
+									<input type="submit" value="+">
 								</td>
 							</tr>
 							<tr class="alert" role="alert">
@@ -51,31 +60,27 @@
 									<span> 3 </span>
 								</td>
 								<td>
-									<span> There are 2 semesters (1,2). There are 9 subjects. </span>
+									<span> Number of subjects </span>
+                                    <input type="number">
+									<span> Old name subjects </span>
+                                    <input type="text"  maxlength="15" size=7>
+									<span> New name subjects </span>
+                                    <input type="text"  maxlength="15" size=7>
 								</td>
 								<td>
-									<a href="/change_rules">Change</a>
+									<input type="submit" value="+">
 								</td>
 							</tr>
+							
 							<tr class="alert" role="alert">
 								<td>
-									<span> 4 </span>
+									<span>4</span>
 								</td>
 								<td>
-									<span> Student pass the subjects if they have GPA>=5. </span>
+									<span> Passing standard score </span>
+                                    <input type="number">
 								</td>
-								<td>
-									<a href="/change_rules">Change</a>
-								</td>
-							</tr>
-							<tr class="alert" role="alert">
-								<td>
-									<span>5</span>
-								</td>
-								<td>
-									<span> Change other rules. </span>
-								</td>
-								<td class="border-bottom-0"><a href="/change_rules">Change</a></td>
+								<td class="border-bottom-0"><input type="submit" value="+"></td>
 								</td>
 							</tr>
 						</tbody>

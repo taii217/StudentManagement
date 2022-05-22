@@ -1,0 +1,93 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+
+<link rel="stylesheet" href="{% static 'css\classManage.css' %}" type="text/css" class="d-flex justify-content-around">
+<script src="{% static 'js\classManage.js' %}"></script>
+
+
+<div class="container">
+  <h1>Class List</h1>
+
+  <button class="btn Update">Update</button>
+
+  <button class="btn danger">Delete</button>
+  <div class="row">
+    <div class="col">
+      <div class="custom-select" style="width:200px ">
+        <select>
+          <option value="0">Year</option>
+          <option value="1">2011</option>
+          <option value="2">2012</option>
+          <option value="3">2013</option>
+          <option value="4">2014</option>
+          <option value="5">2015</option>
+          <option value="6">2016</option>
+          <option value="7">2017</option>
+          <option value="8">2018</option>
+          <option value="9">2019</option>
+          <option value="10">2020</option>
+          <option value="11">2021</option>
+          <option value="12">2022</option>
+        </select>
+      </div>
+    </div>
+    <div class="col">
+
+      <div class="custom-select" style="width:200px;">
+        <select>
+          <option value="0">Semester</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+
+        </select>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="d-flex justify-content-around">
+    <table class="table">
+
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Order ID</th>
+          <th scope="col">Class Name</th>
+          <th scope="col">Total Students</th>
+          <th scope="col">Head Teacher</th>
+          <th scope="col">More</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr>
+          <td scope="row">1</td>
+          <td>10A</td>
+          <td>37</td>
+          <td>Otto</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td scope="row">2</td>
+          <td>10B</td>
+          <td>42</td>
+          <td>Thornton</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td scope="row">3</td>
+          <td>10C</td>
+          <td>41</td>
+          <td>Anderson</td>
+          <td></td>
+        </tr>
+      </tbody>
+
+    </table>
+  </div>
+  <!--surround the select box with a "custom-select" DIV element. Remember to set the width:-->
+
+</div>
+{% endblock %}
