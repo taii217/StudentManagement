@@ -17,6 +17,9 @@ def register(request):
 def rules(request):
     return render(request,'viewRules.html')
  
+def change_rules(request):
+    return render(request,'changeRules.html') 
+    
 def insert_grade(request):
     return render(request, 'insert_grade.html')
 
