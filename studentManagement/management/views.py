@@ -24,6 +24,7 @@ def students(request,pk_test):
     student=Student.objects.get(ID=pk_test)
     return render(request,'students.html') 
 
+ 
 def insert_grade(request):
     return render(request, 'insert_grade.html')
 
@@ -35,3 +36,6 @@ def final_summary(request):
 
 def handler404(request, exception):
     return render(request, '404.html')
+
+def maintenance(request):
+    return render(request, 'maintenance.html')
