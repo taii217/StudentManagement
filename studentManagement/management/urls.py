@@ -16,6 +16,7 @@ urlpatterns = [
 
     path('subject_summary/',views.subject_summary,name="subject_summary"),
     path('final_summary/',views.final_summary,name="final_summary"),
-    path('class_manage/',views.class_manage,name="class_manage")
+    path('class_manage/',views.class_manage,name="class_manage"),
+    path('maintenance/', views.maintenance, name='maintenance'),
 ]
 handler404 = 'management.views.handler404'
