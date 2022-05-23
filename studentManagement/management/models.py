@@ -6,10 +6,16 @@ class Class(models.Model):
     Grade = models.IntegerField(null=True)
     Quantity = models.IntegerField(null=True)
 
+    def __str__(self):
+        return self.ID
+
 
 class Subject(models.Model):
     ID = models.CharField(max_length=10, primary_key=True)
     Name = models.CharField(max_length=20, null=True)
+
+    def __str__(self):
+        return self.Name
 
 
 class Student(models.Model):
@@ -21,6 +27,9 @@ class Student(models.Model):
     Email = models.CharField(max_length=100, null=True, blank=True)
     Gender = models.CharField(max_length=10, null=True)
     Address = models.CharField(max_length=10, null=True, blank=True)
+
+    def __str__(self):
+        return self.ID
 
 
 class Teacher(models.Model):

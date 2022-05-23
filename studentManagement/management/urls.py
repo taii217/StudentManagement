@@ -12,8 +12,10 @@ urlpatterns = [
     path('change_rules/',views.change_rules,name="change_rules"),
 
     path('students/<str:pk_test>',views.students,name="students"),
-    path('insert_grade/',views.insert_grade,name="insert_grade"),
-
+    path('grade/',views.grade,name="grade"),
+    path('create_grade', views.create_grade, name="create_grade"),
+    path('remove_grade/<str:pk>/', views.remove_grade, name="remove_grade"),
+    path('update_grade/<str:pk>/', views.update_grade, name="update_grade"),
     path('subject_summary/',views.subject_summary,name="subject_summary"),
     path('final_summary/',views.final_summary,name="final_summary"),
     path('class_manage/',views.class_manage,name="class_manage"),
