@@ -25,7 +25,7 @@ class Student(models.Model):
     LastName = models.CharField(max_length=10, null=True)
     Birthday = models.DateTimeField(null=True, blank=True)
     Email = models.CharField(max_length=100, null=True, blank=True)
-    Gender = models.CharField(max_length=10, null=True)
+    Gender = models.CharField(max_length=10, null=True, blank=True)
     Address = models.CharField(max_length=10, null=True, blank=True)
 
     def __str__(self):
@@ -45,6 +45,7 @@ class Teacher(models.Model):
 class Mark(models.Model):
     Type = models.CharField(max_length=10, null=True)
     Mark = models.FloatField(null=True)
+    Semester = models.IntegerField(null=True, blank=True)
     StudentID = models.ForeignKey(Student, null=True, on_delete=models.CASCADE)
     SubjectID = models.ForeignKey(Subject, null=True, on_delete=models.CASCADE)
     
@@ -60,13 +61,13 @@ class Student_Teacher(models.Model):
 
 
 class Rule(models.Model):
-    MinAge = models.IntegerField(null=True, blank=True)
-    MaxAge = models.IntegerField(null=True, blank=True)
+    MinAge = models.IntegerField(null=True, blank=True, default=15)
+    MaxAge = models.IntegerField(null=True, blank=True, default=20)
     # Max number of member in a class
-    MaxQuantity = models.IntegerField(null=True, blank=True, default=45)
+    MaxQuantity = models.IntegerField(null=True, blank=True, default=3)
     # Max number of class
-    ClassNumber = models.IntegerField(null=True, blank=True, default=45)
+    ClassNumber = models.IntegerField(null=True, blank=True, default=9)
     # Max number of subject
-    SubjectNumber = models.IntegerField(null=True, blank=True, default=45)
+    SubjectNumber = models.IntegerField(null=True, blank=True, default=9)
     # Standard mark for student to pass
-    PassMark = models.FloatField(null=True, blank=True)
+    PassMark = models.FloatField(null=True, blank=True, default=5)
