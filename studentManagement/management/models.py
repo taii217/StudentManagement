@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here
 class Class(models.Model):
@@ -19,6 +20,7 @@ class Subject(models.Model):
 
 
 class Student(models.Model):
+    user = models.OneToOneField(User,blank=True,null=True,on_delete=models.CASCADE)
     ID = models.CharField(max_length=20, primary_key=True)
     Classname = models.ForeignKey(Class, null=True, on_delete=models.SET_NULL)
     FirstName = models.CharField(max_length=50, null=True)
@@ -33,6 +35,7 @@ class Student(models.Model):
 
 
 class Teacher(models.Model):
+    user = models.OneToOneField(User,blank=True,null=True,on_delete=models.CASCADE)
     ID = models.CharField(max_length=20, primary_key=True)
     SubjectID = models.ForeignKey(Subject, null=True, on_delete=models.SET_NULL)
     FirstName = models.CharField(max_length=50, null=True)
