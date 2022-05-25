@@ -1,34 +1,79 @@
+from multiprocessing import context
 from django.shortcuts import render, redirect
 from .models import *
+from .decorators import *
+
+from django.contrib import messages
+from django.contrib.auth import authenticate,login,logout
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 from .forms import MarkForm
 
+@unauthenticated_user
+def loginPage(request):
+    if request.method =='POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        user = authenticate(request,username=username,password=password)
+        if user is not None:
+            login(request,user)
+            return redirect('home')
+        else :
+            messages.info(request,'User or password is incorrect')
+    context ={}
+    return render(request,'login.html',context)
+
+@login_required(login_url='login')
+def logoutUser(request):
+    logout(request)
+    return redirect('login')
+
+@login_required(login_url='login')
+@admin_only
 def home(request):
     return render(request,'main.html')
 
-def login(request):
-    return render(request,'login.html')
- 
-def logout(request):
-    return render(request,'login.html')
-
-def register(request):
-    return render(request,'register.html')
-
+@login_required(login_url='login')
 def rules(request):
-    return render(request,'viewRules.html')
-    
+    rule = Rule.objects.first()
+    context = {'rule':rule}
+    return render(request,'viewRules.html',context)
+
+@login_required(login_url='login')  
 def change_rules(request):
     return render(request,'changeRules.html') 
 
-def students(request,pk_test):
-    student=Student.objects.get(ID=pk_test)
-    return render(request,'students.html') 
+@login_required(login_url='login')
+def teacher(request,pk):
+    teacher=Teacher.objects.get(ID=pk)
+    context={'teacher':teacher}
+    return render(request,'teacher.html',context) 
 
+@login_required(login_url='login')
+def teachers(request):
+    teachers=Teacher.objects.all().order_by('ID') 
+    context={'teachers':teachers}
+    return render(request,'teachers.html',context) 
+
+@login_required(login_url='login')
+def student(request,pk):
+    student=Student.objects.get(ID=pk)
+    context={'student':student}
+    return render(request,'student.html',context) 
+
+@login_required(login_url='login')
+def students(request):
+    students=Student.objects.all().order_by('ID') 
+    context={'students':students}
+    return render(request,'students.html',context) 
+
+@login_required(login_url='login')
 def grade(request):
     grade = Mark.objects.all()
     return render(request, 'grade.html', {'grade':grade})
  
+@login_required(login_url='login')
 def create_grade(request):
     form = MarkForm()
 
@@ -41,6 +86,7 @@ def create_grade(request):
     context = {'form':form}
     return render(request, 'mark_form.html', context)
 
+@login_required(login_url='login')
 def update_grade(request, pk):
     mark = Mark.objects.get(id=pk)
     form = MarkForm(instance=mark)
@@ -54,6 +100,7 @@ def update_grade(request, pk):
     context = {'form':form}
     return render(request, 'mark_form.html', context)
 
+@login_required(login_url='login')
 def remove_grade(request, pk):
     grade = Mark.objects.get(id=pk)
     if request.method == "POST":
@@ -63,17 +110,22 @@ def remove_grade(request, pk):
     context = {'item':grade}
     return render(request, 'remove.html', context)
 
+@login_required(login_url='login')
 def subject_summary(request):
     return render(request, 'subject_summary.html')
 
+@login_required(login_url='login')
 def final_summary(request):
     return render(request, 'final_summary.html')
 
+@login_required(login_url='login')
 def class_manage(request):
     return render(request, 'classManage.html')
 
+@login_required(login_url='login')
 def handler404(request, exception):
     return render(request, '404.html')
 
+@login_required(login_url='login')
 def maintenance(request):
     return render(request, 'maintenance.html')

@@ -19,7 +19,8 @@
 </head>
 
 <body>
-  <form action="" class="login " method="post">
+  <form action="" class="login " method="POST">
+    {% csrf_token %}
     <div class="imgcontainer">
       <img src="{% static 'images\thunderDuck.jpeg' %}" alt="Avatar" class="avatar">
       <h3>Thunder Ducks</h3>
@@ -27,12 +28,12 @@
 
     <div class="form-group">
       <label for="uname"><b>Username</b></label>
-      <input type="text" class="form-control" id="InputUserLogin" placeholder="Enter username">
+      <input type="text" name="username" class="form-control" id="InputUserLogin" placeholder="Enter username...">
     </div>
 
     <div class="form-group">
       <label for="psw"><b>Repeat password</b></label>
-      <input type="password" class="form-control" id="InputPassLogin" placeholder="Enter pass">
+      <input type="password" name="password" class="form-control" id="InputPassLogin" placeholder="Enter pass...">
     </div>
 
     <div class="form-group row">
@@ -40,5 +41,8 @@
     </div>
 
   </form>
+  {% for message in messages %}
+    <p id="messages">{{message}}</p>
+  {% endfor %}
 
 </html>

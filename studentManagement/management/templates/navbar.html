@@ -39,17 +39,17 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" href="#">Home</a>
+          <a class="nav-link active" href="{% url 'home' %}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Class</a>
+          <a class="nav-link" href="{% url 'teachers' %}">Teacher</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Student</a>
+          <a class="nav-link" href="{% url 'students' %}">Student</a>
         </li>
       </ul>
       <form class="d-flex">
-        <button class="btn btn-outline-success" type="submit">Logout</button>
+        <button class="btn btn-outline-success" type="submit"><a href="{% url 'logout' %}">Logout</a></button>
       </form>
     </div>
   </div>

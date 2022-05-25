@@ -1,0 +1,18 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="row">
+    <div class="col-md">
+        <div class="card card-body">
+            <h5>Teacher Information</h5>
+            <p>ID: {{teacher.ID}} </p>
+            <p>SubjectID: {{teacher.SubjectID}} </p>
+            <p>FirstName: {{teacher.FirstName}} </p>
+            <p>LastName: {{teacher.LastName}} </p>
+            <p>Gender: {{teacher.Gender}} </p>
+            <p>Email: {{teacher.Email}} </p>
+            <p>Birthday: {{teacher.Birthday}} </p>
+            <p>Address: {{teacher.Address}} </p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+{% block content %}
+<div class="row">
+	<div class="col-md">
+		<h5>TEACHERS:</h5>
+		<div class="card card-body">
+			<table class="table">
+				<tr>
+					<th></th>
+					<th>ID</th>
+					<th>SubjectID</th>
+					<th>FirstName</th>
+					<th>LastName</th>
+					<th>Gender</th>
+					<th>Email</th>
+					<th>Birthday</th>
+					<th>Address</th>
+				</tr>
+				{% for teacher in teachers %}
+				<tr>
+					<td><a class="btn btn-sm btn-info" href="{% url 'teacher' teacher.ID %}">View Detail</a></td>
+					<td>{{teacher.ID}}</td>
+					<td>{{teacher.SubjectID}}</td>
+					<td>{{teacher.FirstName}}</td>
+					<td>{{teacher.LastName}}</td>
+					<td>{{teacher.Gender}}</td>
+					<td>{{teacher.Email}}</td>
+					<td>{{teacher.Birthday}}</td>
+					<td>{{teacher.Address}}</td>
+				</tr>
+				{% endfor %}
+
+			</table>
+		</div>
+	</div>
+</div>
+{% endblock %}

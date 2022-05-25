@@ -3,5 +3,5 @@ from .models import Mark
 
 class MarkForm(ModelForm):
 	class Meta:
-			model = Mark
-			fields = '__all__'
+		model = Mark
+		fields = '__all__'
