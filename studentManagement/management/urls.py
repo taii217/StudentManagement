@@ -6,6 +6,7 @@ urlpatterns = [
     path('',views.home,name="home"),
     path('login/',views.loginPage,name="login"),
     path('logout/',views.logoutUser, name="logout"),
+    path('register/',views.register, name="register"),
     
     path('rules/',views.rules,name="rules"),
     path('change_rules/',views.change_rules,name="change_rules"),
@@ -27,5 +28,11 @@ urlpatterns = [
     path('class_manage/',views.class_manage,name="class_manage"),
     
     path('maintenance/', views.maintenance, name='maintenance'),
+
+    path('addStudent/', views.addStudent, name='addStudent'),
+    path('addTeacher/', views.addTeacher, name='addTeacher'),
+
+    # path('do/',views.do)
+
 ]
 handler404 = 'management.views.handler404'
