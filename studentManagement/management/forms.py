@@ -1,7 +1,7 @@
+from dataclasses import field
+from pyexpat import model
 from django.forms import ModelForm
-from django.contrib.auth.forms import UserCreationForm
-from .models import Mark, Student, Teacher
-from django.contrib.auth.models import User
+from .models import Mark, Rule, Student, Teacher
 
 
 class MarkForm(ModelForm):
@@ -19,4 +19,9 @@ class teacherForm(ModelForm):
 		model = Teacher
 		fields = '__all__'
 		exclude = ['ID']
+
+class RuleForm(ModelForm):
+	class Meta:
+		model = Rule
+		fields='__all__'
 		

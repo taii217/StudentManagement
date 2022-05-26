@@ -10,19 +10,9 @@ from django.contrib.auth import authenticate,login,logout,get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
 # Create your views here.
-from .forms import MarkForm, studentForm, teacherForm
+from .forms import MarkForm, RuleForm, studentForm, teacherForm
 
 def register(request):
-    # if request.method =='POST':
-    #     username = request.POST.get('username')
-    #     password = request.POST.get('password')
-
-    #     user = authenticate(request,username=username,password=password)
-    #     if user is not None:
-    #         login(request,user)
-    #         return redirect('home')
-    #     else :
-    #         messages.info(request,'User or password is incorrect')
     context ={}
     return render(request,'register.html',context)
 
@@ -44,7 +34,7 @@ def loginPage(request):
 @login_required(login_url='login')
 def logoutUser(request):
     logout(request)
-    return redirect('login')
+    return redirect('home')
 
 @login_required(login_url='login')
 @admin_only
@@ -58,16 +48,26 @@ def rules(request):
     return render(request,'viewRules.html',context)
 
 @login_required(login_url='login')  
+@admin_only
 def change_rules(request):
-    return render(request,'changeRules.html') 
+    rule = Rule.objects.last()
+    # form = RuleForm()
+    # if request.method == 'POST':
+    #     form = RuleForm(request.POST)
+    #     if form.is_valid:
+    #         instance = form.save()
+    context = {'rule':rule}
+    return render(request,'changeRules.html',context) 
 
 @login_required(login_url='login')
+@admin_only
 def teacher(request,pk):
     teacher=Teacher.objects.get(ID=pk)
     context={'teacher':teacher}
     return render(request,'teacher.html',context) 
 
 @login_required(login_url='login')
+@admin_only
 def teachers(request):
     teachers=Teacher.objects.all().order_by('ID') 
     context={'teachers':teachers}
@@ -139,15 +139,14 @@ def final_summary(request):
 def class_manage(request):
     return render(request, 'classManage.html')
 
-@login_required(login_url='login')
 def handler404(request, exception):
     return render(request, '404.html')
 
-@login_required(login_url='login')
 def maintenance(request):
     return render(request, 'maintenance.html')
 
-
+@login_required(login_url='login')
+@admin_only
 def addStudent(request):
     form = studentForm()
     if request.method == 'POST':
@@ -155,6 +154,8 @@ def addStudent(request):
     context ={'form':form}
     return render(request,'addStudent.html',context)
 
+@login_required(login_url='login')
+@admin_only
 def addTeacher(request):
     group = Group.objects.get(name='Teachers') 
     ID = Teacher.objects.all().count() + 1

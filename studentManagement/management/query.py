@@ -1,19 +1,27 @@
 from .models import *
 from django.db import models
+#tham khảo
+#
+#
+#https://docs.djangoproject.com/en/4.0/topics/db/queries/
+#
+#
+#
+
 #***(1)Returns all customers from customer table
 student= Student.objects.all()
 
 #(2)Returns first customer in table
-firstCustomer = Customer.objects.first()
+fstudent = student.objects.first()
 
 #(3)Returns last customer in table
-lastCustomer = Customer.objects.last()
+lstudent = student.objects.last()
 
 #(4)Returns single customer by name
-customerByName = Customer.objects.get(name='Peter Piper')
+teacherByName = Teacher.objects.get(name='san')
 
 #***(5)Returns single customer by name
-customerById = Customer.objects.get(id=4)
+TeacherById = Teacher.objects.get(id=4)
 
 #***(6)Returns all orders related to customer (firstCustomer variable set above)
 firstCustomer.order_set.all()

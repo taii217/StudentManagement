@@ -3,10 +3,12 @@
 <style>
 </style>
 <div class="row">
+	{% if request.user.is_staff %}
 	<div>
 		<p></P>
 		<a href="/addTeacher" class="btn btn-dark float-end" role="button" aria-pressed="true">add teacher</a>
 	</div>
+	{% endif %}
 	<div class="col-md">
 		<h5>TEACHERS:</h5>
 		<div class="card card-body">

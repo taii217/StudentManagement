@@ -2,7 +2,12 @@
 {% load static %}
 {% block content %}
 <link rel="stylesheet" href="{% static 'css\rules.css' %}">
-
+<style>
+	input{
+		background-color: #808080;
+		color : white
+	}
+</style>
 <section class="ftco-section">
 	<div class="container">
 		<div class="row justify-content-center">
@@ -28,10 +33,9 @@
 								</td>
 								<td>
 									<span> Minimum age </span>
-                                    <input type="number">
+                                    <input type="number" value={{rule.MinAge}}>
 									<span> Maximum age </span>
-                                    <input type="number">
-
+                                    <input type="number" value={{rule.MaxAge}}>
 								</td>
 							</tr>
 							<tr class="alert" role="alert">
@@ -39,15 +43,11 @@
 									<span> 2 </span>
 								</td>
 								<td>
-									<span> Maximum class size </span>
-                                    <input type="number">
-									<span> Number of classes </span>
-                                    <input type="number">
-									<span> Name of classes </span>
-                                    <input type="text"  maxlength="5" size=7>
-
+									<span> Number grades </span>
+                                    <input type="number" value={{rule.ClassNumber}}>
+									<span> Number of Student in each class </span>
+                                    <input type="number" value={{rule.MaxQuantity}}>
 								</td>
-								
 							</tr>
 							<tr class="alert" role="alert">
 								<td>
@@ -55,13 +55,8 @@
 								</td>
 								<td>
 									<span> Number of subjects </span>
-                                    <input type="number">
-									<span> Old name subjects </span>
-                                    <input type="text"  maxlength="15" size=7>
-									<span> New name subjects </span>
-                                    <input type="text"  maxlength="15" size=7>
+                                    <input type="number" value={{rule.SubjectNumber}}>
 								</td>
-								
 							</tr>
 							
 							<tr class="alert" role="alert">
@@ -69,8 +64,9 @@
 									<span>4</span>
 								</td>
 								<td>
-									<span> Passing standard score </span>
-                                    <input type="number">
+									<span> GPA >= </span>
+                                    <input type="number" value={{rule.PassMark}}>
+								</td>
 							</tr>
 						</tbody>
 					</table>

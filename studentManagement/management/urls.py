@@ -31,8 +31,6 @@ urlpatterns = [
 
     path('addStudent/', views.addStudent, name='addStudent'),
     path('addTeacher/', views.addTeacher, name='addTeacher'),
-
     # path('do/',views.do)
-
 ]
 handler404 = 'management.views.handler404'

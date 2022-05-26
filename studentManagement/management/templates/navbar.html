@@ -33,23 +33,25 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
     <img src="{% static 'images/thunderDuck.jpeg' %}" style="width: 70px; height:80px;">
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+	      {% if request.user.is_staff %}
         <li class="nav-item">
           <a class="nav-link active" href="{% url 'home' %}">Home</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'teachers' %}">Teacher</a>
         </li>
+        {% endif %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'students' %}">Student</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'rules' %}">Rule</a>
+        </li>
       </ul>
       <form class="d-flex">
-        <a href="/addTeacher" class="btn btn-outline-success float-end" role="button" aria-pressed="true">Logout</a>
+        <a href="{% url 'logout' %}" class="btn btn-outline-success float-end" role="button" aria-pressed="true">Logout</a>
       </form>
     </div>
   </div>
