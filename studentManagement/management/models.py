@@ -44,6 +44,8 @@ class Teacher(models.Model):
     Email = models.CharField(max_length=100, null=True, blank=True)
     Gender = models.CharField(max_length=10, null=True)
     Address = models.CharField(max_length=100, null=True, blank=True)
+    def __str__(self):
+        return self.ID
 
 class Mark(models.Model):
     Type = models.CharField(max_length=10, null=True)
@@ -51,17 +53,21 @@ class Mark(models.Model):
     Semester = models.IntegerField(null=True, blank=True)
     StudentID = models.ForeignKey(Student, null=True, on_delete=models.CASCADE)
     SubjectID = models.ForeignKey(Subject, null=True, on_delete=models.CASCADE)
-    
+    def __str__(self):
+        return self.ID
 
 class Class_Teacher(models.Model):
     Classname = models.ForeignKey(Class, null=True, on_delete=models.CASCADE)
     TeacherID = models.ForeignKey(Teacher, null=True, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.Classname
 
 
 class Student_Teacher(models.Model):
     StudentID = models.ForeignKey(Student, null=True, on_delete=models.CASCADE)
     TeacherID = models.ForeignKey(Teacher, null=True, on_delete=models.CASCADE)
-
+    def __str__(self):
+        return self.StudentID
 
 class Rule(models.Model):
     MinAge = models.IntegerField(null=True, blank=True, default=15)
