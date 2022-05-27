@@ -1,4 +1,6 @@
-# STUDENT MANAGEMENT
+# StudentManagement
+CNPM - lab final
+
 ## 1.Introduce
 **STUDENT MANAGEMENT** is an web application for schools manage their students and teachers,etc..
 
