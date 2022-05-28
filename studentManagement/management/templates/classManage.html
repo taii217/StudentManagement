@@ -43,7 +43,7 @@
 
     <thead class="thead-light">
       <tr>
-        <th scope="col">Order ID</th>
+        <th></th>
         <th scope="col">Class Name</th>
         <th scope="col">Total Students</th>
         <th scope="col">Head Teacher</th>
@@ -52,27 +52,15 @@
     </thead>
 
     <tbody>
+      {% for Class in Classes %}
       <tr>
-        <td scope="row">1</td>
-        <td>10A</td>
-        <td>37</td>
-        <td>Otto</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td scope="row">2</td>
-        <td>10B</td>
-        <td>42</td>
-        <td>Thornton</td>
-        <td></td>
-      </tr>
-      <tr>
-        <td scope="row">3</td>
-        <td>10C</td>
-        <td>41</td>
-        <td>Anderson</td>
-        <td></td>
-      </tr>
+        <td><a class="btn btn-sm btn-info" href="{% url 'class_Information' Class.ID %}">View Detail</a></td>
+        <td>{{Class.ID}}</td>
+        <td>{{Class.Quantity}}</td>
+        <td>{{Class.HeadTeacher}}</td>
+        <td>{{Class.More}}</td>
+      </tr> 
+      {% endfor %} 
     </tbody>
 
   </table>
