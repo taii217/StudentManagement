@@ -31,7 +31,7 @@ class Student(models.Model):
     Address = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return self.ID
+        return self.FirstName + " " + self.LastName
 
 
 class Teacher(models.Model):
@@ -45,7 +45,7 @@ class Teacher(models.Model):
     Gender = models.CharField(max_length=10, null=True)
     Address = models.CharField(max_length=100, null=True, blank=True)
     def __str__(self):
-        return self.ID
+        return self.FirstName + " " + self.LastName
 
 class Mark(models.Model):
     Type = models.CharField(max_length=10, null=True)
@@ -54,7 +54,7 @@ class Mark(models.Model):
     StudentID = models.ForeignKey(Student, null=True, on_delete=models.CASCADE)
     SubjectID = models.ForeignKey(Subject, null=True, on_delete=models.CASCADE)
     def __str__(self):
-        return self.ID
+        return str(self.StudentID) + " " + str(self.SubjectID) + " " + str(self.Semester)
 
 class Class_Teacher(models.Model):
     Classname = models.ForeignKey(Class, null=True, on_delete=models.CASCADE)

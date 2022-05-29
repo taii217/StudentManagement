@@ -13,7 +13,7 @@ from django.contrib.auth.models import User,Group
 from .forms import MarkForm, RuleForm, studentForm, teacherForm
 
 def register(request):
-    context ={}
+    context = {}
     return render(request,'register.html',context)
 
 @unauthenticated_user
