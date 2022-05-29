@@ -31,11 +31,9 @@ class Class(models.Model):
     def __str__(self):
         return self.ID
 
-
-
 class Student(models.Model):
     user = models.OneToOneField(User,blank=True,null=True,on_delete=models.CASCADE)
-    ID = models.CharField(max_length=20, primary_key=True)
+    ID = models.AutoField(primary_key=True)
     Classname = models.ForeignKey(Class, null=True, on_delete=models.SET_NULL)
     FirstName = models.CharField(max_length=50, null=True)
     LastName = models.CharField(max_length=10, null=True)
@@ -45,21 +43,7 @@ class Student(models.Model):
     Address = models.CharField(max_length=100, null=True, blank=True)
 
     def __str__(self):
-        return self.FirstName + " " + self.LastName
-
-class Teacher(models.Model):
-    user = models.OneToOneField(User,blank=True,null=True,on_delete=models.CASCADE)
-    ID = models.AutoField(primary_key=True)
-    SubjectID = models.ForeignKey(Subject, null=True, on_delete=models.SET_NULL)
-    FirstName = models.CharField(max_length=50, null=True)
-    LastName = models.CharField(max_length=10, null=True)
-    Birthday = models.DateTimeField(null=True, blank=True)
-    Email = models.CharField(max_length=100, null=True, blank=True)
-    Gender = models.CharField(max_length=10, null=True)
-    Address = models.CharField(max_length=100, null=True, blank=True)
-    def __str__(self):
-        return self.FirstName + " " + self.LastName
-
+        return str(self.ID)
 
 class Mark(models.Model):
     Type = models.CharField(max_length=10, null=True)

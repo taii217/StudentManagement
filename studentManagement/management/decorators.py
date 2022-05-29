@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from functools import wraps
 
+from .models import Student
+
 def unauthenticated_user(view_func):
     def wrapper_func(request,*args,**kwargs):
         if request.user.is_authenticated:
@@ -28,8 +30,8 @@ def admin_only(view_func):
         if request.user.groups.exists():
             group = request.user.groups.all()[0].name
         if group =='Students':
-            return redirect('students')
-
+            id = Student.objects.get(user = request.user).ID
+            return redirect("student/" + str(id))
         if group =='Teachers':
             return redirect('students')
 

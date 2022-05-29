@@ -40,6 +40,9 @@
           <a class="nav-link active" href="{% url 'home' %}">Home</a>
         </li>
         <li class="nav-item">
+          <a class="nav-link" href="{% url 'class_manage' %}">Class Manage</a>
+        </li>
+        <li class="nav-item">
           <a class="nav-link" href="{% url 'teachers' %}">Teacher</a>
         </li>
         {% endif %}
@@ -48,9 +51,6 @@
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'rules' %}">Rule</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'class_manage' %}">Class Manage</a>
         </li>
       </ul>
       <form class="d-flex">

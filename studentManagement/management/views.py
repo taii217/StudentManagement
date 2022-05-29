@@ -80,6 +80,7 @@ def student(request,pk):
     return render(request,'student.html',context) 
 
 @login_required(login_url='login')
+@groups_only('Admin','Teachers')
 def students(request):
     students=Student.objects.all().order_by('ID') 
     context={'students':students}
@@ -156,9 +157,25 @@ def maintenance(request):
 @login_required(login_url='login')
 @admin_only
 def addStudent(request):
+    group = Group.objects.get(name='Students') 
+    if(Student.objects.last()):
+        ID = Student.objects.last().ID + 1
+    else:
+        ID = 0
+    usern = "SV" + str(ID)
+    passd = str(ID)
     form = studentForm()
+
     if request.method == 'POST':
         form = studentForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            Email = form.cleaned_data.get('Email')
+            user = get_user_model().objects.create_user(username=usern,email=Email,password=passd)
+            group.user_set.add(user)
+            instance.user = user
+            instance.save()
+            return redirect('addStudent')
     context ={'form':form}
     return render(request,'addStudent.html',context)
 
@@ -169,14 +186,14 @@ def addTeacher(request):
     ID = Teacher.objects.all().count() + 1
     usern = "TC" + str(ID)
     passd = str(ID)
-    email = usern + '@gmail.com'
     form = teacherForm()
 
     if request.method == 'POST':
         form = teacherForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
-            user = get_user_model().objects.create_user(username=usern,email=email,password=passd)
+            Email = form.cleaned_data.get('Email')
+            user = get_user_model().objects.create_user(username=usern,email=Email,password=passd)
             group.user_set.add(user)
             instance.user = user
             instance.save()
@@ -185,7 +202,7 @@ def addTeacher(request):
     return render(request,'addTeacher.html',context)
 
 # def do(request):
-#     teacher = Teacher.objects.last()
+#     teacher = Student.objects.last()
 #     teacher.delete()
 #     print('oke')
 #     return render(request,'login.html')

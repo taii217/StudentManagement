@@ -13,6 +13,7 @@ class studentForm(ModelForm):
 	class Meta:
 		model = Student
 		fields = '__all__'
+		exclude = ['ID']
 
 class teacherForm(ModelForm):
 	class Meta:
