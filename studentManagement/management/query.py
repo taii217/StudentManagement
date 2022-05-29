@@ -8,6 +8,8 @@ from django.db import models
 #
 #
 
+Classes = Class.objects.all() 
+
 #***(1)Returns all customers from customer table
 student= Student.objects.all()
 

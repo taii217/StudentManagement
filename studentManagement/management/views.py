@@ -136,8 +136,16 @@ def final_summary(request):
     return render(request, 'final_summary.html')
 
 @login_required(login_url='login')
+def class_Information(request, pk):
+    class1=Class.objects.get(ID=pk)
+    context={'class1':class1}
+    return render(request, 'classInfor.html', context)
+
+@login_required(login_url='login')
 def class_manage(request):
-    return render(request, 'classManage.html')
+    Classes = Class.objects.all()
+    context = {'Classes': Classes}
+    return render(request, 'classManage.html', context)
 
 def handler404(request, exception):
     return render(request, '404.html')

@@ -1,7 +1,7 @@
 from dataclasses import field
 from pyexpat import model
 from django.forms import ModelForm
-from .models import Mark, Rule, Student, Teacher
+from .models import Mark, Rule, Student, Teacher, Class
 
 
 class MarkForm(ModelForm):
