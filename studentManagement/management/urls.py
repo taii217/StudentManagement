@@ -27,6 +27,7 @@ urlpatterns = [
 
     path('classInfor/<str:pk>',views.class_Information,name="class_Information"),
     path('class_manage/',views.class_manage,name="class_manage"),
+    path('delete_class/<str:pk>',views.delete_class,name="delete_class"),
     
     path('maintenance/', views.maintenance, name='maintenance'),
 

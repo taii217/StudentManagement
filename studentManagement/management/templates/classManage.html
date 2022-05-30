@@ -14,22 +14,14 @@
 
 <div class="container">
   <h1>Class List</h1>
-  <button class="btn btn btn-primary">Update</button>
-  <button class="btn btn btn-danger">Delete</button>
+  
   <select class="form-select">
     <option value="0">Year</option>
-    <option value="1">2011</option>
-    <option value="2">2012</option>
-    <option value="3">2013</option>
-    <option value="4">2014</option>
-    <option value="5">2015</option>
-    <option value="6">2016</option>
-    <option value="7">2017</option>
-    <option value="8">2018</option>
-    <option value="9">2019</option>
-    <option value="10">2020</option>
-    <option value="11">2021</option>
-    <option value="12">2022</option>
+    <option value="1">2022</option>
+    <option value="2">2021</option>
+    <option value="3">2020</option>
+    <option value="4">2019</option>
+    <option value="5">2018</option>
   </select>
 
   <select class="form-select">
@@ -38,13 +30,16 @@
     <option value="2">2</option>
   </select>
 
-<div class="row d-flex justify-content-center ">
+  <button type="button" class="btn btn-outline-primary">Search</button>
+
+  <div class="row d-flex justify-content-center ">
   <table class="table">
 
     <thead class="thead-light">
       <tr>
         <th></th>
-        <th scope="col">Class Name</th>
+        <th></th>
+        <th scope="col">Class</th>
         <th scope="col">Total Students</th>
         <th scope="col">Head Teacher</th>
         <th scope="col">More</th>
@@ -55,6 +50,7 @@
       {% for Class in Classes %}
       <tr>
         <td><a class="btn btn-sm btn-info" href="{% url 'class_Information' Class.ID %}">View Detail</a></td>
+        <td><a class="btn btn-sm btn-danger" href="{% url 'delete_class' Class.ID %}">Delete</a></td>
         <td>{{Class.ID}}</td>
         <td>{{Class.Quantity}}</td>
         <td>{{Class.HeadTeacher}}</td>
@@ -64,6 +60,7 @@
     </tbody>
 
   </table>
+  
 </div>
 <!--surround the select box with a "custom-select" DIV element. Remember to set the width:-->
 

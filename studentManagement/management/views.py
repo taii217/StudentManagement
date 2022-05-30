@@ -148,6 +148,16 @@ def class_manage(request):
     context = {'Classes': Classes}
     return render(request, 'classManage.html', context)
 
+@login_required(login_url='login')
+def delete_class(request, pk):
+    class1=Class.objects.get(ID=pk)
+    if request.method == 'POST':
+        class1.delete()
+        return redirect('/class_manage')
+    
+    context = {'class1':class1}
+    return render(request, 'deleteClass.html', context)
+
 def handler404(request, exception):
     return render(request, '404.html')
 

@@ -7,12 +7,12 @@
 	<div class="col-md-6">
 		<div class="card card-body">
 
-			<p>Are you sure you want to remove this ?</p>
+			<p>Are you sure you want to remove class {{class1.ID}}?</p>
 
-			<form action="{% url 'remove_grade' item.id  %}" method="POST">
+			<form action="{% url 'delete_class' class1.ID  %}" method="POST">
 				
 				{% csrf_token %}
-				<a class="btn btn-warning" href="{% url 'grade' %}">Cancel</a>
+				<a class="btn btn-warning" href="{% url 'class_manage' %}">Cancel</a>
 
 				<input class="btn btn-danger" type="submit" name="Confirm">
 			</form>
