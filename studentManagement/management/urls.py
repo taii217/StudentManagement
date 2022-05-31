@@ -17,8 +17,8 @@ urlpatterns = [
     path('teacher/<str:pk>',views.teacher,name="teacher"),
     path('teachers/',views.teachers,name="teachers"),
 
-    path('grade/',views.grade,name="grade"),
-    path('create_grade/', views.create_grade, name="create_grade"),
+    path('grade/<str:pk>',views.grade,name="grade"),
+    path('create_grade/<str:pk>', views.create_grade, name="create_grade"),
     path('remove_grade/<str:pk>/', views.remove_grade, name="remove_grade"),
     path('update_grade/<str:pk>/', views.update_grade, name="update_grade"),
 

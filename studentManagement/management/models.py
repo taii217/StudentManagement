@@ -2,6 +2,12 @@ from django.db import models
 from django.contrib.auth.models import User
 
 # Create your models here
+
+class Year(models.Model):
+    year_school = models.CharField(max_length=10, primary_key=True)
+    def __str__(self):
+        return self.year_school
+
 class Subject(models.Model):
     ID = models.CharField(max_length=10, primary_key=True)
     Name = models.CharField(max_length=20, null=True)
@@ -28,6 +34,7 @@ class Class(models.Model):
     Quantity = models.IntegerField(null=True, blank=True, default=33)
     HeadTeacher = models.OneToOneField(Teacher, null=True, on_delete=models.CASCADE)
     More = models.CharField(max_length=50, null=True, blank=True)
+    year_school = models.ForeignKey(Year,on_delete=models.CASCADE,null=True)
     def __str__(self):
         return self.ID
 
@@ -46,9 +53,9 @@ class Student(models.Model):
         return str(self.ID)
 
 class Mark(models.Model):
-    Type = models.CharField(max_length=10, null=True)
     Mark = models.FloatField(null=True)
     Semester = models.IntegerField(null=True, blank=True)
+    year_school = models.ForeignKey(Year,on_delete=models.CASCADE,null=True)
     StudentID = models.ForeignKey(Student, null=True, on_delete=models.CASCADE)
     SubjectID = models.ForeignKey(Subject, null=True, on_delete=models.CASCADE)
     def __str__(self):

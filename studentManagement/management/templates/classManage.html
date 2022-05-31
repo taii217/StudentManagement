@@ -16,18 +16,9 @@
   <h1>Class List</h1>
   
   <select class="form-select">
-    <option value="0">Year</option>
-    <option value="1">2022</option>
-    <option value="2">2021</option>
-    <option value="3">2020</option>
-    <option value="4">2019</option>
-    <option value="5">2018</option>
-  </select>
-
-  <select class="form-select">
-    <option value="0">Semester</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
+    {% for year in Years %}
+    <option>{{year.year_school}}</option>
+    {% endfor %}
   </select>
 
   <button type="button" class="btn btn-outline-primary">Search</button>

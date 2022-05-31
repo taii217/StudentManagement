@@ -71,6 +71,9 @@
       {{form.Email}}
     </div>
     <button type="submit" class="btn btn-primary btn-lg">SAVE</button>
+    {% for message in messages %}
+      <p id="messages">{{message}}</p>
+    {% endfor %}
   </div>
 </form>
 {{form.errors}}

@@ -1,4 +1,5 @@
 {% extends 'main.html' %}
+{% load static %}
 {% block content %}
 <div class="row">
 	<div class="col-md">
@@ -8,6 +9,42 @@
 			<p>Total Students: {{class1.Quantity}} </p>
 			<p>Head Teacher: {{class1.HeadTeacher}} </p>
 			<p>More: {{class1.More}} </p>
+		</div>
+	</div>
+</div>
+<div class="col-md">
+	<h5>STUDENTS:</h5>
+		<div class="card card-body">
+			<table class="table">
+				<tr>
+					<th>View</th>
+					<th>Grade</th>
+					<th>ID</th>
+					<th>Classname</th>
+					<th>FirstName</th>
+					<th>LastName</th>
+					<th>Gender</th>
+					<th>Email</th>
+					<th>Birthday</th>
+					<th>Address</th>
+				</tr>
+
+				{% for student in students %}
+				<tr>
+					<td><a class="btn btn-sm btn-info" href="{% url 'student' student.ID %}">View Detail</a></td>
+					<td><a class="btn btn-sm btn-info" href="{% url 'grade' student.ID %}">Grade</a></td>
+					<td>{{student.ID}}</td>
+					<td>{{student.Classname}}</td>
+					<td>{{student.FirstName}}</td>
+					<td>{{student.LastName}}</td>
+					<td>{{student.Gender}}</td>
+					<td>{{student.Email}}</td>
+					<td>{{student.Birthday}}</td>
+					<td>{{student.Address}}</td>
+				</tr>
+				{% endfor %}
+
+			</table>
 		</div>
 	</div>
 </div>

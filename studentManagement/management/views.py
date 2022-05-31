@@ -1,5 +1,6 @@
 import email
 from multiprocessing import context
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 from .models import *
@@ -87,19 +88,29 @@ def students(request):
     return render(request,'students.html',context) 
 
 @login_required(login_url='login')
-def grade(request):
-    grade = Mark.objects.all()
-    return render(request, 'grade.html', {'grade':grade})
+def grade(request,pk):
+    year = Year.objects.last()
+    grade = Mark.objects.filter(StudentID = pk,year_school = year )
+    return render(request, 'grade.html', {'grade':grade,'id':pk,'year':year})
  
 @login_required(login_url='login')
-def create_grade(request):
-    form = MarkForm()
-
+def create_grade(request,pk):
+    initial_dict = {
+        "StudentID" : pk,
+        "Semester"  : 1,
+        "year_school" : Year.objects.last().year_school,
+    }
+    form = MarkForm(initial = initial_dict)
+    
     if request.method == 'POST':
-        form = MarkForm(request.POST)
+        form = MarkForm(request.POST,initial = initial_dict)
         if form.is_valid():
-            form.save()
-            return redirect('/grade')
+            instance = form.save(commit=False)
+            instance.Semester = 1
+            instance.year_school = Year.objects.last()
+            instance.save()
+            messages.success(request,'SUCCESS')
+            return HttpResponseRedirect(request.path_info)
 
     context = {'form':form}
     return render(request, 'mark_form.html', context)
@@ -138,14 +149,18 @@ def final_summary(request):
 
 @login_required(login_url='login')
 def class_Information(request, pk):
-    class1=Class.objects.get(ID=pk)
-    context={'class1':class1}
+    class1= Class.objects.get(ID=pk)
+    students = Student.objects.filter(Classname=pk)
+    class1.Quantity = students.count()
+    class1.save()
+    context={'class1':class1,'students':students}
     return render(request, 'classInfor.html', context)
 
 @login_required(login_url='login')
 def class_manage(request):
     Classes = Class.objects.all()
-    context = {'Classes': Classes}
+    Years = Year.objects.all()
+    context = {'Classes': Classes,'Years': Years}
     return render(request, 'classManage.html', context)
 
 @login_required(login_url='login')
@@ -185,7 +200,8 @@ def addStudent(request):
             group.user_set.add(user)
             instance.user = user
             instance.save()
-            return redirect('addStudent')
+            messages.success(request,'SUCCESS')
+            return HttpResponseRedirect(request.path_info)
     context ={'form':form}
     return render(request,'addStudent.html',context)
 
@@ -207,7 +223,8 @@ def addTeacher(request):
             group.user_set.add(user)
             instance.user = user
             instance.save()
-            return redirect('addTeacher')
+            messages.success(request,'SUCCESS')
+            return HttpResponseRedirect(request.path_info)
     context ={'form':form}
     return render(request,'addTeacher.html',context)
 
