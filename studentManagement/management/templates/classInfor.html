@@ -1,25 +1,19 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-<div class="card border-primary mb-3" style="max-width: 18rem;">
-	<div class="card-header">Header</div>
-	<div class="card-body text-primary">
-	  <h5 class="card-title">Primary card title</h5>
-	  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+<div class="card border-primary mb-3" style="max-width: 18rem; margin: 0px auto;">
+	<div class="card-body text-primary" style="margin: 0px auto;">
+		
+		<h5>Class Information</h5>
+		<p>ID: {{class1.ID}} </p>
+		<p>Total Students: {{class1.Quantity}} </p>
+		<p>Head Teacher: {{class1.HeadTeacher}} </p>
+		<p>More: {{class1.More}} </p>
+		
 	</div>
 </div>
 
-<div class="row">
-	<div class="col-md">
-		<div class="card card-body">
-			<h5>Class Information</h5>
-			<p>ID: {{class1.ID}} </p>
-			<p>Total Students: {{class1.Quantity}} </p>
-			<p>Head Teacher: {{class1.HeadTeacher}} </p>
-			<p>More: {{class1.More}} </p>
-		</div>
-	</div>
-</div>
 
 <div class="col-md">
 	<h5>STUDENTS</h5>

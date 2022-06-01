@@ -1,5 +1,6 @@
 {% extends 'main.html' %}
 {% load static %}
+{% load bootstrap5 %}
 {% block content %}
 <style>
   button{
@@ -15,16 +16,12 @@
 <div class="container">
   <h1>Class List</h1>
   
-  <!-- <select class="form-select">
-    {% for year in Years %}
-    <option>{{year.school_year}}</option>
-    {% endfor %}
-  </select> -->
   <form method="get">
     {{myFilter.form}}
-    <button type="button" class="btn btn-outline-primary">Search</button>
+    <button type="submit" class="btn btn-outline-primary">Search</button>
   </form>
 
+  
   
   <div class="row d-flex justify-content-center ">
   <table class="table">
