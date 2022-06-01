@@ -4,9 +4,9 @@ from django.contrib.auth.models import User
 # Create your models here
 
 class Year(models.Model):
-    year_school = models.CharField(max_length=10, primary_key=True)
+    school_year = models.CharField(max_length=10, primary_key=True)
     def __str__(self):
-        return self.year_school
+        return self.school_year
 
 class Subject(models.Model):
     ID = models.CharField(max_length=10, primary_key=True)
@@ -30,11 +30,10 @@ class Teacher(models.Model):
 
 class Class(models.Model):
     ID = models.CharField(max_length=10, primary_key=True)
-    # Grade = models.IntegerField(null=True)
     Quantity = models.IntegerField(null=True, blank=True, default=33)
     HeadTeacher = models.OneToOneField(Teacher, null=True, on_delete=models.CASCADE)
     More = models.CharField(max_length=50, null=True, blank=True)
-    year_school = models.ForeignKey(Year,on_delete=models.CASCADE,null=True)
+    school_year = models.ForeignKey(Year,on_delete=models.CASCADE,null=True)
     def __str__(self):
         return self.ID
 

@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
 # Create your views here.
 from .forms import MarkForm, RuleForm, studentForm, teacherForm
+from .filters import ClassFilter
 
 def register(request):
     context = {}
@@ -153,6 +154,7 @@ def class_Information(request, pk):
     students = Student.objects.filter(Classname=pk)
     class1.Quantity = students.count()
     class1.save()
+
     context={'class1':class1,'students':students}
     return render(request, 'classInfor.html', context)
 
@@ -160,7 +162,11 @@ def class_Information(request, pk):
 def class_manage(request):
     Classes = Class.objects.all()
     Years = Year.objects.all()
-    context = {'Classes': Classes,'Years': Years}
+
+    myFilter = ClassFilter(request.GET, queryset=Classes)
+    Classes = myFilter.qs
+
+    context = {'Classes': Classes,'Years': Years, 'myFilter': myFilter}
     return render(request, 'classManage.html', context)
 
 @login_required(login_url='login')

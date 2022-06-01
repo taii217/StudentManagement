@@ -15,14 +15,17 @@
 <div class="container">
   <h1>Class List</h1>
   
-  <select class="form-select">
+  <!-- <select class="form-select">
     {% for year in Years %}
-    <option>{{year.year_school}}</option>
+    <option>{{year.school_year}}</option>
     {% endfor %}
-  </select>
+  </select> -->
+  <form method="get">
+    {{myFilter.form}}
+    <button type="button" class="btn btn-outline-primary">Search</button>
+  </form>
 
-  <button type="button" class="btn btn-outline-primary">Search</button>
-
+  
   <div class="row d-flex justify-content-center ">
   <table class="table">
 
