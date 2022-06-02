@@ -1,6 +1,11 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
+<style>
+	.link{
+		margin : 10px
+	}
+</style>
 
 <div class="card border-primary mb-3" style="max-width: 18rem; margin: 0px auto;">
 	<div class="card-body text-primary" style="margin: 0px auto;">
@@ -12,6 +17,7 @@
 		<p>More: {{class1.More}} </p>
 		
 	</div>
+	<a href="/report" class="btn btn-primary btn-lg float-center link" role="button" type="" aria-pressed="true">View report</a>
 </div>
 
 
@@ -51,4 +57,5 @@
 		</div>
 	</div>
 </div>
+
 {% endblock  %}

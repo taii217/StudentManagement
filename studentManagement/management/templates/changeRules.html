@@ -7,74 +7,75 @@
 		background-color: #808080;
 		color : white
 	}
+	button,a{
+		margin : 10px
+	}
 </style>
-<section class="ftco-section">
+<form method="POST" class="ftco-section">
+	{% csrf_token %}
+
 	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-md-3 text-center mb-4">
-				<h2 class="heading-section">RULES</h2>
-			</div>
-		</div>
+		<h2 class="heading-section text-center">RULES</h2>
 		<div class="row">
-			<div class="col-md-12">
-				<h3 class="h5 mb-4 text-center">Change Rules</h3>
-				<div class="table-wrap">
-					<table class="table table-dark table-bordered table-hover">
-						<thead class="thead-primary">
-							<tr class="table-active">
-								<th>N.O</th>
-								<th>Information</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="alert" role="alert">
-								<td>
-									<span> 1 </span>
+			<h3 class="h5 mb-4 text-center">Change Rules</h3>
+			<div class="table-wrap">
+				<table class="table table-dark table-bordered table-hover">
+					<thead class="thead-primary">
+						<tr class="table-active">
+							<th>N.O</th>
+							<th>Information</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="alert" role="alert">
+							<td>
+								<span> 1 </span>
+							</td>
+							<td>
+								<span> Minimum age </span>
+                                <input type="number" name= 'MinAge' value={{rule.MinAge}}>
+								<span> Maximum age </span>
+                                <input type="number" name= 'MaxAge' value={{rule.MaxAge}}>
+							</td>
+						</tr>
+						<tr class="alert" role="alert">
+							<td>
+								<span> 2 </span>
+							</td>
+							<td>
+								<span> Number grades </span>
+                                <input type="number" name= 'NumGrades' value={{rule.ClassNumber}}>
+								<span> Number of Student in each class </span>
+                                <input type="number" name= 'NumMen' value={{rule.MaxQuantity}}>
 								</td>
-								<td>
-									<span> Minimum age </span>
-                                    <input type="number" value={{rule.MinAge}}>
-									<span> Maximum age </span>
-                                    <input type="number" value={{rule.MaxAge}}>
-								</td>
-							</tr>
-							<tr class="alert" role="alert">
-								<td>
-									<span> 2 </span>
-								</td>
-								<td>
-									<span> Number grades </span>
-                                    <input type="number" value={{rule.ClassNumber}}>
-									<span> Number of Student in each class </span>
-                                    <input type="number" value={{rule.MaxQuantity}}>
-								</td>
-							</tr>
-							<tr class="alert" role="alert">
-								<td>
-									<span> 3 </span>
-								</td>
-								<td>
-									<span> Number of subjects </span>
-                                    <input type="number" value={{rule.SubjectNumber}}>
-								</td>
-							</tr>
+						</tr>
+						<tr class="alert" role="alert">
+							<td>
+								<span> 3 </span>
+							</td>
+							<td>
+								<span> Number of subjects </span>
+                               <input type="number" name= 'NumSubject' value={{rule.SubjectNumber}}>
+							</td>
+						</tr>
 							
-							<tr class="alert" role="alert">
-								<td>
-									<span>4</span>
-								</td>
-								<td>
-									<span> GPA >= </span>
-                                    <input type="number" value={{rule.PassMark}}>
-								</td>
-							</tr>
-						</tbody>
-					</table>
-					<a href="/change_rules" class="btn btn-primary  btn-lg float-end" role="button" aria-pressed="true">Change</a>
-				</div>
+						<tr class="alert" role="alert">
+							<td>
+								<span>4</span>
+							</td>
+							<td>
+								<span> GPA >= </span>
+                                   <input type="number" name= 'GPA' value={{rule.PassMark}}>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<button type="submit" class="btn btn-primary btn-lg float-end" aria-pressed="true">Change</button>
+				<a href="/rules" class="btn btn-primary  btn-lg float-end" role="button" type="" aria-pressed="true">Back</a>
 			</div>
 		</div>
 	</div>
-</section>
+</form>
+
 {% endblock %}
 

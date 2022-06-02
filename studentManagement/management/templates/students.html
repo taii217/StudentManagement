@@ -14,6 +14,7 @@
 			<table class="table">
 				<tr>
 					<th></th>
+					<th></th>
 					<th>ID</th>
 					<th>Classname</th>
 					<th>FirstName</th>
@@ -26,6 +27,7 @@
 				{% for student in students %}
 				<tr>
 					<td><a class="btn btn-sm btn-info" href="{% url 'student' student.ID %}">View Detail</a></td>
+					<td><a class="btn btn-sm btn-info" href="{% url 'grade' student.ID %}">Grade</a></td>
 					<td>{{student.ID}}</td>
 					<td>{{student.Classname}}</td>
 					<td>{{student.FirstName}}</td>

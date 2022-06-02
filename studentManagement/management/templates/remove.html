@@ -12,7 +12,7 @@
 			<form action="{% url 'remove_grade' item.id  %}" method="POST">
 				
 				{% csrf_token %}
-				<a class="btn btn-warning" href="{% url 'grade' %}">Cancel</a>
+				<a class="btn btn-warning" href="{% url 'grade' item.id %}">Cancel</a>
 
 				<input class="btn btn-danger" type="submit" name="Confirm">
 			</form>

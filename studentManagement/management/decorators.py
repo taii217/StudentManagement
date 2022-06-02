@@ -49,3 +49,4 @@ def groups_only(*groups):
                 return HttpResponse('You are not authorized to view this page')
         return wrapper_func
     return inner
+

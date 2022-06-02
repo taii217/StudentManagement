@@ -3,6 +3,8 @@ from multiprocessing import context
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
+from management.createUser import DefaultMark
+
 from .models import *
 from .decorators import *
 
@@ -45,7 +47,7 @@ def home(request):
 
 @login_required(login_url='login')
 def rules(request):
-    rule = Rule.objects.first()
+    rule = Rule.objects.last()
     context = {'rule':rule}
     return render(request,'viewRules.html',context)
 
@@ -53,13 +55,17 @@ def rules(request):
 @admin_only
 def change_rules(request):
     rule = Rule.objects.last()
-    # form = RuleForm()
-    # if request.method == 'POST':
-    #     form = RuleForm(request.POST)
-    #     if form.is_valid:
-    #         instance = form.save()
+    if request.method == "POST":
+        rule.MinAge = request.POST.get('MinAge')
+        rule.MaxAge = request.POST.get('MaxAge')
+        rule.MaxQuantity = request.POST.get('NumMen')
+        rule.ClassNumber = request.POST.get('NumGrades')
+        rule.SubjectNumber = request.POST.get('NumSubject')
+        rule.PassMark = request.POST.get('GPA')
+        rule.save()
+        return redirect('/rules')
     context = {'rule':rule}
-    return render(request,'changeRules.html',context) 
+    return render(request,'changeRules.html',context)
 
 @login_required(login_url='login')
 @admin_only
@@ -99,7 +105,7 @@ def create_grade(request,pk):
     initial_dict = {
         "StudentID" : pk,
         "Semester"  : 1,
-        "year_school" : Year.objects.last().year_school,
+        "year_school" : Year.objects.last(),
     }
     form = MarkForm(initial = initial_dict)
     
@@ -120,12 +126,13 @@ def create_grade(request,pk):
 def update_grade(request, pk):
     mark = Mark.objects.get(id=pk)
     form = MarkForm(instance=mark)
-
+    studentID = mark.StudentID
     if request.method == 'POST':
         form = MarkForm(request.POST, instance=mark)
+        
         if form.is_valid():
             form.save()
-            return redirect('/grade')
+            return redirect('/grade/'+ str(studentID))
 
     context = {'form':form}
     return render(request, 'mark_form.html', context)
@@ -133,9 +140,10 @@ def update_grade(request, pk):
 @login_required(login_url='login')
 def remove_grade(request, pk):
     grade = Mark.objects.get(id=pk)
+    studentID = grade.StudentID
     if request.method == "POST":
         grade.delete()
-        return redirect('/grade')
+        return redirect('/grade/'+ str(studentID))
 
     context = {'item':grade}
     return render(request, 'remove.html', context)
@@ -207,6 +215,8 @@ def addStudent(request):
             instance.user = user
             instance.save()
             messages.success(request,'SUCCESS')
+            print(instance.ID)
+            DefaultMark(instance)
             return HttpResponseRedirect(request.path_info)
     context ={'form':form}
     return render(request,'addStudent.html',context)

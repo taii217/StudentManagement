@@ -74,6 +74,10 @@
 					<a href="/change_rules" class="btn btn-secondary  btn-lg float-end" role="button" aria-pressed="true">change_rules</a>
 					{% endif %}
 					
+					{% for message in messages %}
+      					<p id="messages">{{message}}</p>
+    				{% endfor %}
+					
 				</div>
 			</div>
 		</div>

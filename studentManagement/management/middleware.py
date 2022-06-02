@@ -14,5 +14,4 @@ class MaintenanceModeMiddleware:
             return response
 
         response = self.get_response(request)
-
         return response
