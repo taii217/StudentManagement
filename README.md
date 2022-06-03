@@ -6,30 +6,44 @@ CNPM - lab final
 
 **Public app**: https://student-management-g13.herokuapp.com/
 
-## 2. How to run project
+## 2. Database info
 
-###  0. clone project
+**Server:** student-management-g13.database.windows.net
+
+**Database:** StudentManagement
+
+**User:** DBAdmin
+
+**Password:** Matkhau123!
+
+## 3. How to run project
+
+###  1. Clone project
 ```sh
 git clone https://github.com/taii217/StudentManagement.git
 ```
 
-###  1. install pip django
+###  2. Install package
 ```sh
-pip install django
+pip install -r PATH\requirements.txt
 ```
 
-###  2. runserver
+###  3. Runserver
 ```sh
 python manage.py runserver
 ```
 
-###  3. goto admin
+###  4. Goto admin
 ```sh
 http://127.0.0.1:8000/admin
 http://127.0.0.1:8000
 ```
-###  4. Login by admin
+###  5. Login by admin
 ```sh
 username : admin
 passwork : 1
 ```
+
+
+
+
