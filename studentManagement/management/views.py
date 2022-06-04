@@ -3,8 +3,7 @@ from multiprocessing import context
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
-from management.createUser import DefaultMark
-
+from .createUser import *
 from .models import *
 from .decorators import *
 
@@ -169,12 +168,12 @@ def class_Information(request, pk):
 @login_required(login_url='login')
 def class_manage(request):
     Classes = Class.objects.all()
-    Years = Year.objects.all()
+    #Years = Year.objects.all()
 
     myFilter = ClassFilter(request.GET, queryset=Classes)
     Classes = myFilter.qs
 
-    context = {'Classes': Classes,'Years': Years, 'myFilter': myFilter}
+    context = {'Classes': Classes, 'myFilter': myFilter}
     return render(request, 'classManage.html', context)
 
 @login_required(login_url='login')
@@ -197,10 +196,7 @@ def maintenance(request):
 @admin_only
 def addStudent(request):
     group = Group.objects.get(name='Students') 
-    if(Student.objects.last()):
-        ID = Student.objects.last().ID + 1
-    else:
-        ID = 0
+    ID = createUserStudentID()
     usern = "SV" + str(ID)
     passd = str(ID)
     form = studentForm()
@@ -213,9 +209,9 @@ def addStudent(request):
             user = get_user_model().objects.create_user(username=usern,email=Email,password=passd)
             group.user_set.add(user)
             instance.user = user
+            instance.ID = ID
             instance.save()
-            messages.success(request,'SUCCESS')
-            print(instance.ID)
+            messages.success(request,'Success create ' + usern)
             DefaultMark(instance)
             return HttpResponseRedirect(request.path_info)
     context ={'form':form}
@@ -225,7 +221,7 @@ def addStudent(request):
 @admin_only
 def addTeacher(request):
     group = Group.objects.get(name='Teachers') 
-    ID = Teacher.objects.all().count() + 1
+    ID = createUserTeacherID()
     usern = "TC" + str(ID)
     passd = str(ID)
     form = teacherForm()
@@ -238,8 +234,9 @@ def addTeacher(request):
             user = get_user_model().objects.create_user(username=usern,email=Email,password=passd)
             group.user_set.add(user)
             instance.user = user
+            instance.ID = ID
             instance.save()
-            messages.success(request,'SUCCESS')
+            messages.success(request,'Success create ' + usern)
             return HttpResponseRedirect(request.path_info)
     context ={'form':form}
     return render(request,'addTeacher.html',context)

@@ -1,8 +1,23 @@
 from django.contrib.auth.models import User
+from .models import *
+import datetime
 
 from management.models import Subject,Mark, Year
-def createUserStudent():
-    pass
+def createUserStudentID():
+    now = datetime.datetime.now().year - 2000
+    if(Student.objects.last()):
+        IDlast = int(Student.objects.last().ID) + 1
+    else :
+        IDlast = 1
+    id = str(now) + str(IDlast)
+    return id
+
+def createUserTeacherID():
+    if(Teacher.objects.last()):
+        IDlast = int(Teacher.objects.last().ID) + 1
+    else: 
+        return str(1)
+    return IDlast
 
 def DefaultMark(ID):
     subject = Subject.objects.all()

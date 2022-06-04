@@ -52,3 +52,5 @@ insert into management_student values ('SV26','12A2','B','Bui Van',NULL,NULL,NUL
 insert into management_student values ('SV27','12A2','C','Bui Van',NULL,NULL,NULL,NULL);
 
 
+
+
