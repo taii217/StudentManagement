@@ -11,3 +11,6 @@ admin.site.register(Mark)
 #admin.site.register(Class_Teacher)
 admin.site.register(Rule)
 admin.site.register(Year)
+admin.site.register(Semeter)
+admin.site.register(Report_Class)
+

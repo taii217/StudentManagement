@@ -7,6 +7,8 @@
 	<div>
 		<p></P>
 		<a href="/addTeacher" class="btn btn-dark float-end" role="button" aria-pressed="true">add teacher</a>
+		
+
 	</div>
 	{% endif %}
 	<div class="col-md">
@@ -14,7 +16,6 @@
 		<div class="card card-body">
 			<table class="table">
 				<tr>
-					<th></th>
 					<th>ID</th>
 					<th>SubjectID</th>
 					<th>FirstName</th>
@@ -23,10 +24,10 @@
 					<th>Email</th>
 					<th>Birthday</th>
 					<th>Address</th>
+					<th></th>
 				</tr>
 				{% for teacher in teachers %}
 				<tr>
-					<td><a class="btn btn-sm btn-info" href="{% url 'teacher' teacher.ID %}">View Detail</a></td>
 					<td>{{teacher.ID}}</td>
 					<td>{{teacher.SubjectID}}</td>
 					<td>{{teacher.FirstName}}</td>
@@ -35,6 +36,7 @@
 					<td>{{teacher.Email}}</td>
 					<td>{{teacher.Birthday}}</td>
 					<td>{{teacher.Address}}</td>
+					<td><a class="btn btn-sm btn-info" href="{% url 'teacher' teacher.ID %}">View Detail</a></td>
 				</tr>
 				{% endfor %}
 

@@ -1,8 +1,10 @@
 import email
 from multiprocessing import context
+from tkinter import SE
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
+from .report import *
 from .createUser import *
 from .models import *
 from .decorators import *
@@ -96,14 +98,18 @@ def students(request):
 @login_required(login_url='login')
 def grade(request,pk):
     year = Year.objects.last()
-    grade = Mark.objects.filter(StudentID = pk,year_school = year )
-    return render(request, 'grade.html', {'grade':grade,'id':pk,'year':year})
+    grade1 = Mark.objects.filter(StudentID = pk,year_school = year, semester = 1)
+    grade2 = Mark.objects.filter(StudentID = pk,year_school = year, semester = 2)
+    avgMark1 = Report_Class.objects.get(StudentID = pk,semester = 1).mark
+    avgMark2 = Report_Class.objects.get(StudentID = pk,semester = 2).mark
+    context ={'grade1':grade1,'grade2':grade2,'id':pk,'year':year,'avg1':avgMark1,'avg2':avgMark2}
+    return render(request, 'grade.html', context)
  
 @login_required(login_url='login')
 def create_grade(request,pk):
     initial_dict = {
         "StudentID" : pk,
-        "Semester"  : 1,
+        "Semester"  : Semeter.objects.last(),
         "year_school" : Year.objects.last(),
     }
     form = MarkForm(initial = initial_dict)
@@ -112,7 +118,7 @@ def create_grade(request,pk):
         form = MarkForm(request.POST,initial = initial_dict)
         if form.is_valid():
             instance = form.save(commit=False)
-            instance.Semester = 1
+            instance.semester = 1
             instance.year_school = Year.objects.last()
             instance.save()
             messages.success(request,'SUCCESS')
@@ -123,18 +129,26 @@ def create_grade(request,pk):
 
 @login_required(login_url='login')
 def update_grade(request, pk):
-    mark = Mark.objects.get(id=pk)
+    mark = Mark.objects.get(id=pk,semester = 1,year_school = Year.objects.last())
     form = MarkForm(instance=mark)
     studentID = mark.StudentID
+    Rp = Report_Class.objects.get(StudentID = studentID,year_school = Year.objects.last(),semester = 1)
+    print(Rp.mark)
     if request.method == 'POST':
         form = MarkForm(request.POST, instance=mark)
-        
-        if form.is_valid():
-            form.save()
-            return redirect('/grade/'+ str(studentID))
+        if form.is_valid(): 
+            mark_condition = form.cleaned_data.get('Mark') 
+            if (mark_condition <= 10 and mark_condition > 0) :
+                instance = form.save()
+                mt = Mark.objects.filter(StudentID = studentID,year_school = Year.objects.last(),semester = 1).values_list('Mark',flat=True)
+                Rp.mark = ave_mark(mt)
+                Rp.save()
+                return redirect('/grade/'+ str(studentID))
+            else:
+                messages.error(request,'Error : Mark <= 10 and > 0')
 
     context = {'form':form}
-    return render(request, 'mark_form.html', context)
+    return render(request, 'update_mark.html', context)
 
 @login_required(login_url='login')
 def remove_grade(request, pk):
@@ -148,7 +162,10 @@ def remove_grade(request, pk):
     return render(request, 'remove.html', context)
 
 @login_required(login_url='login')
-def subject_summary(request):
+def class_summary(request,classID):
+    cl = Class.objects.get(ID = classID)
+
+    context = {"class":cl}
     return render(request, 'subject_summary.html')
 
 @login_required(login_url='login')
@@ -197,8 +214,8 @@ def maintenance(request):
 def addStudent(request):
     group = Group.objects.get(name='Students') 
     ID = createUserStudentID()
-    usern = "SV" + str(ID)
-    passd = str(ID)
+    usern = "SV" + ID
+    passd = ID
     form = studentForm()
 
     if request.method == 'POST':

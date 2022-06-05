@@ -4,11 +4,14 @@ from django.contrib.auth.models import User
 # Create your models here
 
 class Year(models.Model):
-    school_year = models.CharField(max_length=10, primary_key=True)
-
+    school_year = models.CharField(max_length=9, primary_key=True)
     def __str__(self):
         return self.school_year
 
+class Semeter(models.Model):
+    semeter_id = models.IntegerField(primary_key=True)
+    def __str__(self):
+        return str(self.semeter_id)
 
 class Subject(models.Model):
     ID = models.CharField(max_length=10, primary_key=True)
@@ -37,7 +40,7 @@ class Class(models.Model):
     ID = models.CharField(max_length=10, primary_key=True)
     Quantity = models.IntegerField(null=True, blank=True, default=33)
     HeadTeacher = models.ForeignKey(Teacher, null=True, on_delete=models.CASCADE)
-    More = models.CharField(max_length=50, null=True, blank=True)
+    #More = models.CharField(max_length=50, null=True, blank=True)
     school_year = models.ForeignKey(Year, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
@@ -46,7 +49,7 @@ class Class(models.Model):
 
 class Student(models.Model):
     user = models.OneToOneField(User, blank=True, null=True, on_delete=models.CASCADE)
-    ID = models.IntegerField(primary_key=True)
+    ID = models.CharField(primary_key=True,max_length=20)
     Classname = models.ForeignKey(Class, null=True, on_delete=models.SET_NULL)
     FirstName = models.CharField(max_length=50, null=True)
     LastName = models.CharField(max_length=10, null=True)
@@ -61,13 +64,13 @@ class Student(models.Model):
 
 class Mark(models.Model):
     Mark = models.FloatField(null=True)
-    Semester = models.IntegerField(null=True, blank=True)
+    semester = models.ForeignKey(Semeter,on_delete=models.CASCADE, null=True)
     year_school = models.ForeignKey(Year, on_delete=models.CASCADE, null=True)
     StudentID = models.ForeignKey(Student, null=True, on_delete=models.CASCADE)
     SubjectID = models.ForeignKey(Subject, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
-        return str(self.StudentID) + " " + str(self.SubjectID) + " " + str(self.Semester)
+        return str(self.StudentID) + " " + str(self.SubjectID) + " " + str(self.semester)
 
 
 # class Class_Teacher(models.Model):
@@ -91,3 +94,14 @@ class Rule(models.Model):
     SubjectNumber = models.IntegerField(null=True, blank=True, default=9)
     # Standard mark for student to pass
     PassMark = models.FloatField(null=True, blank=True, default=5)
+
+class Report_Class(models.Model):
+    StudentID = models.ForeignKey(Student, null=True, on_delete=models.CASCADE)
+    mark = models.FloatField(null=True)
+    semester = models.ForeignKey(Semeter,on_delete=models.CASCADE, null=True)
+    year_school = models.ForeignKey(Year, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return str(self.StudentID) + " " + str(self.year_school) + " " + str(self.semester)
+    
+

@@ -79,27 +79,27 @@ WSGI_APPLICATION = 'studentManagement.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': 'mssql',
-        'NAME': 'StudentManagement',
-        'USER': 'DBAdmin',
-        'PASSWORD': 'Matkhau123!',
-        'HOST': 'student-management-g13.database.windows.net',
-        'PORT': '',
-
-        'OPTIONS': {
-                'driver': 'ODBC Driver 17 for SQL Server',
-        },
-    },
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'mssql',
+#         'NAME': 'StudentManagement',
+#         'USER': 'DBAdmin',
+#         'PASSWORD': 'Matkhau123!',
+#         'HOST': 'student-management-g13.database.windows.net',
+#         'PORT': '',
+
+#         'OPTIONS': {
+#                 'driver': 'ODBC Driver 17 for SQL Server',
+#         },
+#     },
+# }
 
 
 # Password validation

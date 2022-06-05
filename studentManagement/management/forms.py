@@ -8,7 +8,7 @@ class MarkForm(ModelForm):
 	class Meta:
 		model = Mark
 		fields = '__all__'
-		exclude = ['Type','Semester','year_school']
+		exclude = []
 
 class studentForm(ModelForm):
 	class Meta:

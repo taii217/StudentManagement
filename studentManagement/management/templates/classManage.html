@@ -27,22 +27,22 @@
 
     <thead class="thead-light">
       <tr>
-        <th></th>
-        <th></th>
         <th scope="col">Class</th>
         <th scope="col">Total Students</th>
         <th scope="col">Head Teacher</th>
+        <th></th>
+        <th></th>
       </tr>
     </thead>
 
     <tbody>
       {% for Class in Classes %}
       <tr>
-        <td><a class="btn btn-sm btn-info" href="{% url 'class_Information' Class.ID %}">View Detail</a></td>
-        <td><a class="btn btn-sm btn-danger" href="{% url 'delete_class' Class.ID %}">Delete</a></td>
         <td>{{Class.ID}}</td>
         <td>{{Class.Quantity}}</td>
         <td>{{Class.HeadTeacher}}</td>
+        <td><a class="btn btn-sm btn-info" href="{% url 'class_Information' Class.ID %}">View Detail</a></td>
+        <td><a class="btn btn-sm btn-danger" href="{% url 'delete_class' Class.ID %}">Delete</a></td>
       </tr> 
       {% endfor %} 
     </tbody>

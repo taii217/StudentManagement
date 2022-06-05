@@ -1,4 +1,5 @@
 {% extends 'main.html' %}
+{% load static %}
 {% block content %}
 <div class="row">
     <div class="col-md">
@@ -14,5 +15,9 @@
             <p>Address: {{teacher.Address}} </p>
         </div>
     </div>
+</div>
+<div>
+    <p></P>
+    <a href="{% url 'teachers'  %}" class="btn btn-dark btn-lg float-end" role="button" aria-pressed="true" style="margin-right : 10px">Back</a>
 </div>
 {% endblock %}

@@ -18,6 +18,9 @@
 		
 	</div>
 	<a href="/report" class="btn btn-primary btn-lg float-center link" role="button" type="" aria-pressed="true">View report</a>
+
+	<a href="{% url 'class_manage'  %}" class="btn btn-dark btn-lg float-end link" role="button" aria-pressed="true" style="margin-right : 10px">Back</a>
+	
 </div>
 
 
@@ -26,8 +29,6 @@
 		<div class="card card-body">
 			<table class="table">
 				<tr>
-					<th>View</th>
-					<th>Grade</th>
 					<th>ID</th>
 					<th>Classname</th>
 					<th>FirstName</th>
@@ -36,12 +37,12 @@
 					<th>Email</th>
 					<th>Birthday</th>
 					<th>Address</th>
+					<th>View</th>
+					<th>Grade</th>
 				</tr>
 
 				{% for student in students %}
 				<tr>
-					<td><a class="btn btn-sm btn-info" href="{% url 'student' student.ID %}">View Detail</a></td>
-					<td><a class="btn btn-sm btn-info" href="{% url 'grade' student.ID %}">Grade</a></td>
 					<td>{{student.ID}}</td>
 					<td>{{student.Classname}}</td>
 					<td>{{student.FirstName}}</td>
@@ -50,6 +51,8 @@
 					<td>{{student.Email}}</td>
 					<td>{{student.Birthday}}</td>
 					<td>{{student.Address}}</td>
+					<td><a class="btn btn-sm btn-info" href="{% url 'student' student.ID %}">View Detail</a></td>
+					<td><a class="btn btn-sm btn-info" href="{% url 'grade' student.ID %}">Grade</a></td>
 				</tr>
 				{% endfor %}
 

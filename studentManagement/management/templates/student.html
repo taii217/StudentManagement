@@ -1,5 +1,6 @@
 {% extends 'main.html' %}
 {% block content %}
+
 <div class="row">
 	<div class="col-md">
 		<div class="card card-body">
@@ -14,5 +15,9 @@
 			<p>Address: {{student.Address}} </p>
 		</div>
 	</div>
+</div>
+<div>
+	<p></P>
+	<a href="{% url 'students'  %}" class="btn btn-dark btn-lg float-end" role="button" aria-pressed="true" style="margin-right : 10px">Back</a>
 </div>
 {% endblock  %}

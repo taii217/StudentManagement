@@ -1,8 +1,7 @@
 {% extends 'main.html' %}
 {% block content %}
 
-    <br>
-
+  <br>
     <div class="row">
       <div>
         <p></P>
@@ -19,7 +18,7 @@
             <th>Update</th>
           </tr>
 
-          {% for i in grade %}
+          {% for i in grade1 %}
             <tr>
               <td>{{i.StudentID}}</td>
               <td>{{i.SubjectID}}</td>
@@ -28,10 +27,15 @@
               {% comment %} <td><a class="btn btn-sm btn-danger" href="{% url 'remove_grade' i.id %}">Remove</a></td> {% endcomment %}
             </tr>
           {% endfor %}
+            <tr>
+              <td></td>
+              <td></td>
+              <td><span>Averger :</span></td>
+              <td>{{avg1}}</td>
+
+            </tr>
           
       </div>
     </div>
-      
-    </div>
-
-{% endblock content %}
+  </div>
+{% endblock content %}  

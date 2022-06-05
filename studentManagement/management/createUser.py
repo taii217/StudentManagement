@@ -5,10 +5,12 @@ import datetime
 from management.models import Subject,Mark, Year
 def createUserStudentID():
     now = datetime.datetime.now().year - 2000
+    print(now)
     if(Student.objects.last()):
-        IDlast = int(Student.objects.last().ID) + 1
+        IDlast = int(Student.objects.last().ID[2:]) + 1
     else :
         IDlast = 1
+    print(IDlast)
     id = str(now) + str(IDlast)
     return id
 
@@ -21,19 +23,38 @@ def createUserTeacherID():
 
 def DefaultMark(ID):
     subject = Subject.objects.all()
+    year = Year.objects.last()
+    s1 = Semeter.objects.first()
+    s2 = Semeter.objects.last()
     for sub in subject:
-        # init_data = {
-        # 'Mark' : 0,
-        # 'Semester' : 1,
-        # 'year_school' : Year.objects.last(),
-        # 'StudentID' : ID,
-        # 'SubjectID' : sub.ID
-        # }   
         mark = Mark.objects.create()
         mark.Mark = 0
-        mark.Semester = 1
-        mark.year_school = Year.objects.last()
+        mark.semester = s1
+        mark.year_school = year
         mark.StudentID = ID
         mark.SubjectID = sub
         mark.save()
+    for sub in subject:
+        mark = Mark.objects.create()
+        mark.Mark = 0
+        mark.semester = s2
+        mark.year_school = year
+        mark.StudentID = ID
+        mark.SubjectID = sub
+        mark.save()
+
+    Rp1 = Report_Class.objects.create()
+    Rp1.StudentID = ID
+    Rp1.mark = 0
+    Rp1.semester = s1
+    Rp1.year_school = year
+    Rp1.save()
+
+    Rp2 = Report_Class.objects.create()
+    Rp2.StudentID = ID
+    Rp2.mark = 0
+    Rp2.semester = s2
+    Rp2.year_school = year
+    Rp2.save()
+
     return True
