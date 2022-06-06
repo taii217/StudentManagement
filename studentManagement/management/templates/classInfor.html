@@ -17,9 +17,9 @@
 		<p>More: {{class1.More}} </p>
 		
 	</div>
-	<a href="/report" class="btn btn-primary btn-lg float-center link" role="button" type="" aria-pressed="true">View report</a>
+	<a href="{% url 'classSummary' class1.ID  %}" class="btn btn-primary btn-lg float-center link" role="button" type="" aria-pressed="true">View report</a>
 
-	<a href="{% url 'class_manage'  %}" class="btn btn-dark btn-lg float-end link" role="button" aria-pressed="true" style="margin-right : 10px">Back</a>
+	<a href="{% url 'class_manage' %}" class="btn btn-dark btn-lg float-end link" role="button" aria-pressed="true" style="margin-right : 10px">Back</a>
 	
 </div>
 

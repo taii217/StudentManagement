@@ -1,41 +1,77 @@
 {% extends 'main.html' %}
+{% load static %}
 {% block content %}
-
-  <br>
-    <div class="row">
-      <div>
-        <p></P>
-        {% comment %} <a href="{% url 'create_grade' id %}" class="btn btn-dark float-end" role="button" aria-pressed="true">add grade</a> {% endcomment %}
-      </div>
-      <h5>School Year : {{year}}</h5>
-      <hr>
-      <div class="card card-body">
-        <table class="table table-sm">
-          <tr>
-            <th>Student ID</th>
-            <th>Subject ID</th>
-            <th>Mark</th>
-            <th>Update</th>
-          </tr>
-
-          {% for i in grade1 %}
-            <tr>
-              <td>{{i.StudentID}}</td>
-              <td>{{i.SubjectID}}</td>
-              <td>{{i.Mark}}</td>
-              <td><a class="btn btn-sm btn-info" href="{% url 'update_grade' i.id %}">Update</a></td>
-              {% comment %} <td><a class="btn btn-sm btn-danger" href="{% url 'remove_grade' i.id %}">Remove</a></td> {% endcomment %}
-            </tr>
-          {% endfor %}
-            <tr>
-              <td></td>
-              <td></td>
-              <td><span>Averger :</span></td>
-              <td>{{avg1}}</td>
-
-            </tr>
-          
-      </div>
-    </div>
+<link rel="stylesheet" href="{% static 'css\grade.css' %}">
+<script src="{% static 'js\grade.js' %}"></script>
+<div class="row">
+  <div>
+    <p></P>
+    {% comment %} <a href="{% url 'create_grade' id %}" class="btn btn-dark float-end" role="button"
+      aria-pressed="true">add grade</a> {% endcomment %}
   </div>
-{% endblock content %}  
+  <h5>School Year : {{year}}</h5>
+  <div class="tab">
+    <button id="default" class="tablinks" onclick="swit(event, 'se1')">Semester 1</button>
+    <button class="tablinks" onclick="swit(event, 'se2')">Semester 2</button>
+  </div>
+
+  <div class="card card-body tabcontent " id="se1">
+    <table class="table table-sm">
+      <tr>
+        <th>Student ID</th>
+        <th>Subject ID</th>
+        <th>Mark</th>
+        <th>Update</th>
+      </tr>
+
+      {% for i in grade1 %}
+      <tr>
+        <td>{{i.StudentID}}</td>
+        <td>{{i.SubjectID}}</td>
+        <td>{{i.Mark}}</td>
+        <td><a class="btn btn-sm btn-info" href="{% url 'update_grade' i.id i.semester %}">Update</a></td>
+        {% comment %} <td><a class="btn btn-sm btn-danger" href="{% url 'remove_grade' i.id i.semester %}">Remove</a> </td> {% endcomment %}
+        
+      </tr>
+      {% endfor %}
+      <tr>
+        <td></td>
+        <td></td>
+        <td><span>Averger :</span></td>
+        <td>{{avg1}}</td>
+      </tr>
+    </table>
+  </div>
+  <div class="card card-body tabcontent" id="se2">
+    <table class="table table-sm">
+      <tr>
+        <th>Student ID</th>
+        <th>Subject ID</th>
+        <th>Mark</th>
+        <th>Update</th>
+      </tr>
+
+      {% for i in grade2 %}
+      <tr>
+        <td>{{i.StudentID}}</td>
+        <td>{{i.SubjectID}}</td>
+        <td>{{i.Mark}}</td>
+        <td><a class="btn btn-sm btn-info" href="{% url 'update_grade' i.id i.semester %}">Update</a></td>
+        {% comment %} <td><a class="btn btn-sm btn-danger" href="{% url 'remove_grade' i.id %}">Remove</a></td> {% endcomment %}
+      </tr>
+      {% endfor %}
+      <tr>
+        <td></td>
+        <td></td>
+        <td><span>Averger :</span></td>
+        <td>{{avg2}}</td>
+      </tr>
+    </table>
+  </div>
+</div>
+
+<script>
+  const el = document.getElementById("default");
+  el.click();
+</script>
+{% endblock content %}

@@ -20,10 +20,10 @@ urlpatterns = [
     path('grade/<str:pk>',views.grade,name="grade"),
     path('create_grade/<str:pk>', views.create_grade, name="create_grade"),
     path('remove_grade/<str:pk>/', views.remove_grade, name="remove_grade"),
-    path('update_grade/<str:pk>/', views.update_grade, name="update_grade"),
+    path('update_grade/<str:id>/<str:se>/', views.update_grade, name="update_grade"),
 
-    path('class_summary/<str:classID>',views.class_summary,name="class_summary"),
-    path('final_summary/>',views.final_summary,name="final_summary"),
+    path('classSummary/<str:classID>',views.classSummary, name="classSummary"),
+    path('allClassSummary/>',views.allClassSummary, name="allClassSummary"),
 
     path('classInfor/<str:pk>',views.class_Information,name="class_Information"),
     path('class_manage/',views.class_manage,name="class_manage"),

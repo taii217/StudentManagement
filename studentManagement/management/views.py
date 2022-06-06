@@ -128,22 +128,24 @@ def create_grade(request,pk):
     return render(request, 'mark_form.html', context)
 
 @login_required(login_url='login')
-def update_grade(request, pk):
-    mark = Mark.objects.get(id=pk,semester = 1,year_school = Year.objects.last())
+def update_grade(request, id,se):
+    mark = Mark.objects.get(id=id,semester = se,year_school = Year.objects.last())
     form = MarkForm(instance=mark)
-    studentID = mark.StudentID
-    Rp = Report_Class.objects.get(StudentID = studentID,year_school = Year.objects.last(),semester = 1)
+    studentID_ = mark.StudentID
+    year_ = mark.year_school
+    sem_ = mark.semester
+    Rp = Report_Class.objects.get(StudentID = studentID_,year_school = year_ ,semester = sem_)
     print(Rp.mark)
     if request.method == 'POST':
         form = MarkForm(request.POST, instance=mark)
         if form.is_valid(): 
             mark_condition = form.cleaned_data.get('Mark') 
             if (mark_condition <= 10 and mark_condition > 0) :
-                instance = form.save()
-                mt = Mark.objects.filter(StudentID = studentID,year_school = Year.objects.last(),semester = 1).values_list('Mark',flat=True)
+                form.save()
+                mt = Mark.objects.filter(StudentID = studentID_,year_school = year_,semester = sem_).values_list('Mark',flat=True)
                 Rp.mark = ave_mark(mt)
                 Rp.save()
-                return redirect('/grade/'+ str(studentID))
+                return redirect('/grade/'+ str(studentID_))
             else:
                 messages.error(request,'Error : Mark <= 10 and > 0')
 
@@ -162,15 +164,22 @@ def remove_grade(request, pk):
     return render(request, 'remove.html', context)
 
 @login_required(login_url='login')
-def class_summary(request,classID):
-    cl = Class.objects.get(ID = classID)
+def classSummary(request,classID):
+    class1= Class.objects.all()
+    rp = Report_Class.objects.all()
+    # for cl in class1:
+    #     numPass = 0
+    #     for r in rp:
+    #         stu = Student.objects.get(ID = rp.StudentID)
+    #         if is_pass_GPA :
+    #             numPass+=1
 
-    context = {"class":cl}
-    return render(request, 'subject_summary.html')
+    context = {"class1":class1}
+    return render(request, 'classSummary.html',context)
 
 @login_required(login_url='login')
-def final_summary(request):
-    return render(request, 'final_summary.html')
+def allClassSummary(request):
+    return render(request, 'allClassSummary.html')
 
 @login_required(login_url='login')
 def class_Information(request, pk):
