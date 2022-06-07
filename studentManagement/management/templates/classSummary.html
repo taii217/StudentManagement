@@ -1,25 +1,26 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Class</th>
-      <th scope="col">Student Numbers</th>
-      <th scope="col">Pass Numbers</th>
-      <th scope="col">Pass Rate</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for class in class1 %}
-    <tr>
-      <td>{{class.ID}}</td>
-      <td>{{class.Quantity}}</td>
-      <td>{{class.HeadTeacher}}</td>
-      <td>{{class.school_year}}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Class</th>
+        <th scope="col">Student Numbers</th>
+        <th scope="col">Pass Numbers</th>
+        <th scope="col">Pass Rate</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for cla in class %}
+      <tr>
+        <td>{{cla.ID}}</td>
+        <td>{{cla.Quantity}}</td>
+        <td>{{cla.numPass}}</td>
+        <td>{{cla.rate}} %  </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
 {% endblock %}

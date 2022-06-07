@@ -28,7 +28,9 @@ def DefaultMark(ID):
     s2 = Semeter.objects.last()
     for sub in subject:
         mark = Mark.objects.create()
-        mark.Mark = 0
+        mark.Mark15 = 0
+        mark.Mark60 = 0
+        mark.MarkFinal = 0
         mark.semester = s1
         mark.year_school = year
         mark.StudentID = ID
@@ -36,7 +38,9 @@ def DefaultMark(ID):
         mark.save()
     for sub in subject:
         mark = Mark.objects.create()
-        mark.Mark = 0
+        mark.Mark15 = 0
+        mark.Mark60 = 0
+        mark.MarkFinal = 0
         mark.semester = s2
         mark.year_school = year
         mark.StudentID = ID

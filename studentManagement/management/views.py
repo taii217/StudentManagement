@@ -1,5 +1,6 @@
 import email
 from multiprocessing import context
+from pydoc import classname
 from tkinter import SE
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -91,7 +92,11 @@ def student(request,pk):
 @login_required(login_url='login')
 @groups_only('Admin','Teachers')
 def students(request):
-    students=Student.objects.all().order_by('ID') 
+    year = Year.objects.last()
+    students=Student.objects.all().order_by('ID')
+    for s in students:
+        s.rp1 = round(Report_Class.objects.get(StudentID = s.ID,semester = 1,year_school = year).mark,2)
+        s.rp2 = round(Report_Class.objects.get(StudentID = s.ID,semester = 2,year_school = year).mark,2) 
     context={'students':students}
     return render(request,'students.html',context) 
 
@@ -100,32 +105,32 @@ def grade(request,pk):
     year = Year.objects.last()
     grade1 = Mark.objects.filter(StudentID = pk,year_school = year, semester = 1)
     grade2 = Mark.objects.filter(StudentID = pk,year_school = year, semester = 2)
-    avgMark1 = Report_Class.objects.get(StudentID = pk,semester = 1).mark
-    avgMark2 = Report_Class.objects.get(StudentID = pk,semester = 2).mark
+    avgMark1 = round(Report_Class.objects.get(StudentID = pk,semester = 1).mark,2)
+    avgMark2 = round(Report_Class.objects.get(StudentID = pk,semester = 2).mark,2)
     context ={'grade1':grade1,'grade2':grade2,'id':pk,'year':year,'avg1':avgMark1,'avg2':avgMark2}
     return render(request, 'grade.html', context)
  
 @login_required(login_url='login')
 def create_grade(request,pk):
-    initial_dict = {
-        "StudentID" : pk,
-        "Semester"  : Semeter.objects.last(),
-        "year_school" : Year.objects.last(),
-    }
-    form = MarkForm(initial = initial_dict)
+    # initial_dict = {
+    #     "StudentID" : pk,
+    #     "Semester"  : Semeter.objects.last(),
+    #     "year_school" : Year.objects.last(),
+    # }
+    # form = MarkForm(initial = initial_dict)
     
-    if request.method == 'POST':
-        form = MarkForm(request.POST,initial = initial_dict)
-        if form.is_valid():
-            instance = form.save(commit=False)
-            instance.semester = 1
-            instance.year_school = Year.objects.last()
-            instance.save()
-            messages.success(request,'SUCCESS')
-            return HttpResponseRedirect(request.path_info)
+    # if request.method == 'POST':
+    #     form = MarkForm(request.POST,initial = initial_dict)
+    #     if form.is_valid():
+    #         instance = form.save(commit=False)
+    #         instance.semester = 1
+    #         instance.year_school = Year.objects.last()
+    #         instance.save()
+    #         messages.success(request,'SUCCESS')
+    #         return HttpResponseRedirect(request.path_info)
 
-    context = {'form':form}
-    return render(request, 'mark_form.html', context)
+    # context = {'form':form}
+    return render(request, 'mark_form.html', context={})
 
 @login_required(login_url='login')
 def update_grade(request, id,se):
@@ -135,14 +140,16 @@ def update_grade(request, id,se):
     year_ = mark.year_school
     sem_ = mark.semester
     Rp = Report_Class.objects.get(StudentID = studentID_,year_school = year_ ,semester = sem_)
-    print(Rp.mark)
     if request.method == 'POST':
         form = MarkForm(request.POST, instance=mark)
         if form.is_valid(): 
-            mark_condition = form.cleaned_data.get('Mark') 
-            if (mark_condition <= 10 and mark_condition > 0) :
+            mark_condition1 = form.cleaned_data.get('Mark15')
+            mark_condition2 = form.cleaned_data.get('Mark60') 
+            mark_condition3 = form.cleaned_data.get('MarkFinal') 
+            if isMarkValid(mark_condition1) and isMarkValid(mark_condition2) and isMarkValid(mark_condition3) :
                 form.save()
-                mt = Mark.objects.filter(StudentID = studentID_,year_school = year_,semester = sem_).values_list('Mark',flat=True)
+                mt = Mark.objects.filter(StudentID = studentID_,year_school = year_,semester = sem_)
+                #update report
                 Rp.mark = ave_mark(mt)
                 Rp.save()
                 return redirect('/grade/'+ str(studentID_))
@@ -164,27 +171,46 @@ def remove_grade(request, pk):
     return render(request, 'remove.html', context)
 
 @login_required(login_url='login')
-def classSummary(request,classID):
-    class1= Class.objects.all()
-    rp = Report_Class.objects.all()
-    # for cl in class1:
-    #     numPass = 0
-    #     for r in rp:
-    #         stu = Student.objects.get(ID = rp.StudentID)
-    #         if is_pass_GPA :
-    #             numPass+=1
+def classSummary(request):
+    year = Year.objects.last()
+    cla = Class.objects.all() 
+    for cl in cla:
+        stu = Student.objects.filter(Classname = cl.ID)
+        cl.numPass = 0
+        for s in stu:
+            rp1 = Report_Class.objects.get(StudentID = s.ID,semester = 1,year_school = year).mark
+            rp2 = Report_Class.objects.get(StudentID = s.ID,semester = 2,year_school = year).mark
+            if is_pass_GPA((rp1 + rp2*2)/3): 
+                cl.numPass+=1
+        if cl.Quantity == 0 : cl.rate = 0
+        else : cl.rate = round(cl.numPass / cl.Quantity * 100,2)
 
-    context = {"class1":class1}
+    context = {"class":cla}
     return render(request, 'classSummary.html',context)
 
 @login_required(login_url='login')
-def allClassSummary(request):
+def subjectSummary(request,subjectID):
+    class1= Class.objects.get()
+    rp = Report_Class.objects.all()
+    for cl in class1:
+        numPass = 0
+        for r in rp:
+            stu = Student.objects.get(ID = rp.StudentID)
+            if is_pass_GPA(stu.mark) : numPass+=1
+        cl.numPass = numPass
+        cl.rate = numPass / cl.Quantity
+
+    context = {"class1":class1}
     return render(request, 'allClassSummary.html')
 
 @login_required(login_url='login')
 def class_Information(request, pk):
+    year = Year.objects.last()
     class1= Class.objects.get(ID=pk)
     students = Student.objects.filter(Classname=pk)
+    for s in students:
+        s.rp1 = round(Report_Class.objects.get(StudentID = s.ID,semester = 1,year_school = year).mark,2)
+        s.rp2 = round(Report_Class.objects.get(StudentID = s.ID,semester = 2,year_school = year).mark,2)
     class1.Quantity = students.count()
     class1.save()
 
@@ -270,6 +296,6 @@ def addTeacher(request):
 # def do(request):
 #     teacher = Student.objects.last()
 #     teacher.delete()
-#     print('oke')
+#     git('oke')
 #     return render(request,'login.html')
 

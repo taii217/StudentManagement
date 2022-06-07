@@ -42,6 +42,8 @@ class Class(models.Model):
     HeadTeacher = models.ForeignKey(Teacher, null=True, on_delete=models.CASCADE)
     #More = models.CharField(max_length=50, null=True, blank=True)
     school_year = models.ForeignKey(Year, on_delete=models.CASCADE, null=True)
+    # numPass = models.IntegerField(null=True, blank=True, default=0)
+    # rate = models.IntegerField(null=True, blank=True, default=0)
 
     def __str__(self):
         return self.ID
@@ -63,7 +65,9 @@ class Student(models.Model):
 
 
 class Mark(models.Model):
-    Mark = models.FloatField(null=True)
+    Mark15 = models.FloatField(null=True,default = 0)
+    Mark60 = models.FloatField(null=True,default = 0)
+    MarkFinal = models.FloatField(null=True,default = 0)
     semester = models.ForeignKey(Semeter,on_delete=models.CASCADE, null=True)
     year_school = models.ForeignKey(Year, on_delete=models.CASCADE, null=True)
     StudentID = models.ForeignKey(Student, null=True, on_delete=models.CASCADE)

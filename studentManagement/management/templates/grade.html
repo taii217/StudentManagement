@@ -15,12 +15,14 @@
     <button class="tablinks" onclick="swit(event, 'se2')">Semester 2</button>
   </div>
 
-  <div class="card card-body tabcontent " id="se1">
+  <div class="tabcontent" id="se1">
     <table class="table table-sm">
       <tr>
         <th>Student ID</th>
         <th>Subject ID</th>
-        <th>Mark</th>
+        <th>Mark15</th>
+        <th>Mark60</th>
+        <th>MarkFinal</th>
         <th>Update</th>
       </tr>
 
@@ -28,7 +30,9 @@
       <tr>
         <td>{{i.StudentID}}</td>
         <td>{{i.SubjectID}}</td>
-        <td>{{i.Mark}}</td>
+        <td>{{i.Mark15}}</td>
+        <td>{{i.Mark60}}</td>
+        <td>{{i.MarkFinal}}</td>
         <td><a class="btn btn-sm btn-info" href="{% url 'update_grade' i.id i.semester %}">Update</a></td>
         {% comment %} <td><a class="btn btn-sm btn-danger" href="{% url 'remove_grade' i.id i.semester %}">Remove</a> </td> {% endcomment %}
         
@@ -37,17 +41,21 @@
       <tr>
         <td></td>
         <td></td>
+        <td></td>
+        <td></td>
         <td><span>Averger :</span></td>
         <td>{{avg1}}</td>
       </tr>
     </table>
   </div>
-  <div class="card card-body tabcontent" id="se2">
+  <div class="tabcontent" id="se2">
     <table class="table table-sm">
       <tr>
         <th>Student ID</th>
         <th>Subject ID</th>
-        <th>Mark</th>
+        <th>Mark15</th>
+        <th>Mark60</th>
+        <th>MarkFinal</th>
         <th>Update</th>
       </tr>
 
@@ -55,12 +63,16 @@
       <tr>
         <td>{{i.StudentID}}</td>
         <td>{{i.SubjectID}}</td>
-        <td>{{i.Mark}}</td>
+        <td>{{i.Mark15}}</td>
+        <td>{{i.Mark60}}</td>
+        <td>{{i.MarkFinal}}</td>
         <td><a class="btn btn-sm btn-info" href="{% url 'update_grade' i.id i.semester %}">Update</a></td>
         {% comment %} <td><a class="btn btn-sm btn-danger" href="{% url 'remove_grade' i.id %}">Remove</a></td> {% endcomment %}
       </tr>
       {% endfor %}
       <tr>
+        <td></td>
+        <td></td>
         <td></td>
         <td></td>
         <td><span>Averger :</span></td>

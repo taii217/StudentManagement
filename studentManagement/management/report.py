@@ -4,19 +4,17 @@ def ave_mark(mark):
     sum = 0
     num = 0
     for m in mark:
-        if(m != 0): 
-            sum+=m
-            num+=1
-    if num == 0: 
-        return 0
-    print(sum)
-    print(num)
-    print("oke")
-
+        sum += (float(m.Mark15 or 0) + float(m.Mark60 or 0) * 2 + float(m.MarkFinal or 0) * 3)/6
+        num+=1
     return sum/num
 
 def is_pass_GPA(mark):
     GPA = Rule.objects.last().PassMark
     if (mark >= GPA ): 
+        return True
+    return False
+
+def isMarkValid(mark):
+    if (mark <= 10 and mark >= 0):
         return True
     return False
