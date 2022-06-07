@@ -7,9 +7,13 @@
 		<a href="/addStudent" class="btn btn-dark  float-end" role="button" aria-pressed="true">add student</a>
 	</div>
 	{% endif %}
-
+	<form method="get">
+		{{myFilter.form}}
+		<button type="submit" class="btn btn-outline-primary">Search</button>
+	  </form>
 	<div class="col-md">
 		<h5>STUDENTS:</h5>
+		
 		<div class="card card-body">
 			<table class="table">
 				<tr>

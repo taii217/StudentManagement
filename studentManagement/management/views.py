@@ -16,7 +16,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
 # Create your views here.
 from .forms import MarkForm, RuleForm, studentForm, teacherForm
-from .filters import ClassFilter
+from .filters import ClassFilter, StudentFilter
 
 def register(request):
     context = {}
@@ -86,6 +86,7 @@ def teachers(request):
 @login_required(login_url='login')
 def student(request,pk):
     student=Student.objects.get(ID=pk)
+
     context={'student':student}
     return render(request,'student.html',context) 
 
@@ -93,11 +94,16 @@ def student(request,pk):
 @groups_only('Admin','Teachers')
 def students(request):
     year = Year.objects.last()
-    students=Student.objects.all().order_by('ID')
+    students=Student.objects.all()
+    myFilter = StudentFilter(request.GET, queryset=students)
+    students = myFilter.qs 
     for s in students:
         s.rp1 = round(Report_Class.objects.get(StudentID = s.ID,semester = 1,year_school = year).mark,2)
-        s.rp2 = round(Report_Class.objects.get(StudentID = s.ID,semester = 2,year_school = year).mark,2) 
-    context={'students':students}
+        s.rp2 = round(Report_Class.objects.get(StudentID = s.ID,semester = 2,year_school = year).mark,2)
+
+    
+    context={'students':students,'myFilter': myFilter}
+
     return render(request,'students.html',context) 
 
 @login_required(login_url='login')
@@ -190,18 +196,36 @@ def classSummary(request):
 
 @login_required(login_url='login')
 def subjectSummary(request,subjectID):
-    class1= Class.objects.get()
-    rp = Report_Class.objects.all()
-    for cl in class1:
-        numPass = 0
-        for r in rp:
-            stu = Student.objects.get(ID = rp.StudentID)
-            if is_pass_GPA(stu.mark) : numPass+=1
-        cl.numPass = numPass
-        cl.rate = numPass / cl.Quantity
+    year = Year.objects.last()
+    cla1 = Class.objects.all() 
+    cla2 = Class.objects.all() 
+    subname = Subject.objects.get(ID = subjectID ).Name
+    mark1 = Mark.objects.filter(SubjectID = subjectID,year_school = year,semester = 1)
+    mark2 = Mark.objects.filter(SubjectID = subjectID,year_school = year,semester = 2)
+    for cl,cl2 in zip(cla1,cla2):
+        cl.numPass = 0
+        cl2.numPass = 0
+        for n,m in zip(mark1,mark2) :
+            rp1 = ((n.Mark15 or 0) + (n.Mark60 or 0)*2  + (n.MarkFinal or 0 )*3)/6
+            rp2 = ((m.Mark15 or 0) + (m.Mark60 or 0)*2  + (m.MarkFinal or 0 )*3)/6
+            print(rp1)
+            if is_pass_GPA(rp1): 
+                print(1)
+                cl.numPass +=1
+            if is_pass_GPA(rp2): 
+                print(1)
+                cl2.numPass +=1
+    
+        if cl.Quantity == 0 : 
+            cl.rate , cl2.rate = 0,0
+            print(2)
+        else : 
+            print(3)
+            cl.rate = round(cl.numPass / cl.Quantity * 100,2)
+            cl2.rate = round(cl2.numPass / cl2.Quantity * 100,2)
 
-    context = {"class1":class1}
-    return render(request, 'allClassSummary.html')
+    context = {"class1":cla1,"class2":cla2,"name":subname}
+    return render(request, 'subjectSummary.html',context)
 
 @login_required(login_url='login')
 def class_Information(request, pk):

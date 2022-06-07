@@ -1,36 +1,57 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
+<link rel="stylesheet" href="{% static 'css\grade.css' %}">
+<script src="{% static 'js\grade.js' %}"></script>
+<h5>Subject : {{name}}</h5>
+<div class="tab">
+  <button id="default" class="tablinks" onclick="swit(event, 'se1')">Semester 1</button>
+  <button class="tablinks" onclick="swit(event, 'se2')">Semester 2</button>
+</div>
 
+<div class="tabcontent" id="se1">
 <table class="table">
     <tr>
-      <th scope="col">#</th>
       <th scope="col">Class</th>
       <th scope="col">Student Numbers</th>
       <th scope="col">Pass Numbers</th>
       <th scope="col">Pass Rate</th>
     </tr>
+    {% for cl in class1 %}
     <tr>
-      <th scope="row">1</th>
-      <td>...</td>
-      <td>...</td>
-      <td>(số lượng đạt)</td>
-      <td>(tỉ lệ)</td>
+      <th scope="row">{{cl.ID}}</th>
+      <td>{{cl.Quantity}}</td>
+      <td>{{cl.numPass}}</td>
+      <td>{{cl.rate}}</td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-      <td>...</td>
-    </tr>
+    {% endfor %}
   </tbody>
 </table>
+</div>
+
+<div class="tabcontent" id="se2">
+  <table class="table">
+      <tr>
+        <th scope="col">Class</th>
+        <th scope="col">Student Numbers</th>
+        <th scope="col">Pass Numbers</th>
+        <th scope="col">Pass Rate</th>
+      </tr>
+      {% for cl in class2 %}
+      <tr>
+        <th scope="row">{{cl.ID}}</th>
+        <td>{{cl.Quantity}}</td>
+        <td>{{cl.numPass}}</td>
+        <td>{{cl.rate}}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+
+  
+<script>
+  const el = document.getElementById("default");
+  el.click();
+</script>
 {% endblock %}
