@@ -33,7 +33,7 @@ urlpatterns = [
 
     path('addStudent/', views.addStudent, name='addStudent'),
     path('addTeacher/', views.addTeacher, name='addTeacher'),
-
+    path('addClass/', views.addClass, name='addClass'),
     path('reset_password/',
         auth_views.PasswordResetView.as_view(template_name="password_reset.html"),
         name="reset_password"),

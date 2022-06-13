@@ -15,7 +15,7 @@ from django.contrib.auth import authenticate,login,logout,get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
 # Create your views here.
-from .forms import MarkForm, RuleForm, studentForm, teacherForm
+from .forms import MarkForm, RuleForm, studentForm, teacherForm,classForm
 from .filters import ClassFilter, StudentFilter
 
 def register(request):
@@ -317,6 +317,27 @@ def addTeacher(request):
     context ={'form':form}
     return render(request,'addTeacher.html',context)
 
+@login_required(login_url='login')
+@admin_only
+def addClass(request):
+    form = classForm()
+
+    if request.method == 'POST':
+        form = classForm(request.POST)
+        if form.is_valid():
+            instance = form.save(commit=False)
+            ID = form.cleaned_data.get('ID')
+            
+            instance.ID = ID
+            instance.save()
+            
+            messages.success(request,'Success create ' + ID)
+
+            return HttpResponseRedirect(request.path_info)
+    
+    context ={'form':form}
+    
+    return render(request,'addClass.html',context)
 # def do(request):
 #     teacher = Student.objects.last()
 #     teacher.delete()

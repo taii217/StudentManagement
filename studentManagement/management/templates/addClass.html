@@ -1,0 +1,73 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<style>
+  .form-g{
+    width: 600px;
+    margin: auto;
+  }
+  label{
+    width: 150px;
+  }
+  input {
+    border-radius: 20px;
+    width: 70%;
+  }
+  select{
+    border-radius: 20px;
+    width: 70%;
+  }
+  .user_card {
+			width: 600px;
+			margin-top: auto;
+			margin-bottom: auto;
+			background: #74cfbf;
+			position: relative;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+			padding: 10px;
+			box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+			border-radius: 5px;
+		}
+  .form-group{
+    margin: 10px;
+  }
+  h1 {
+    margin-top: 20px;
+    text-align:center;
+  }
+  
+</style>
+<form method="POST" class="">
+<h1 >ADDING CLASS</h1>
+  {% csrf_token %}
+  <div class="form-g form-center user_card">
+    <div class="form-group">
+      <label>ID</label>
+      {{form.ID}}
+    </div>
+    <div class="form-group">
+      <label>Quantity</label>
+      {{form.Quantity}}
+    </div>
+    <div class="form-group">
+      <label>HeadTeacher</label>
+      {{form.HeadTeacher}}
+    </div>
+    <div class="form-group ">
+      <label>School year</label>
+      {{form.school_year}}
+    </div>
+    
+    <button type="submit" class="btn btn-primary btn-lg">SAVE</button>
+    {% for message in messages %}
+      <p id="messages">{{message}}</p>
+    {% endfor %}
+  </div>
+</form>
+{{form.errors}}
+{% endblock %}

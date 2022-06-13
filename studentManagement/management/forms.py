@@ -24,6 +24,11 @@ class studentForm(ModelForm):
 				),
         }
 
+class classForm(ModelForm):
+    class Meta:
+        model = Class
+        fields = '__all__'
+        exclude = []
 
 class teacherForm(ModelForm):
     class Meta:
