@@ -9,7 +9,7 @@ urlpatterns = [
     path('register/',views.register, name="register"),
     
     path('rules/',views.rules,name="rules"),
-    path('change_rules/',views.change_rules,name="change_rules"),
+    path('change_rules/',views.change_rules,name="change_rules"), 
 
     path('student/<str:pk>',views.student,name="student"),
     path('students/',views.students,name="students"),
@@ -24,6 +24,8 @@ urlpatterns = [
 
     path('classSummary/',views.classSummary, name="classSummary"),
     path('subjectSummary/<str:subjectID>',views.subjectSummary, name="subjectSummary"),
+    path('report/',views.report, name="report"),
+
 
     path('classInfor/<str:pk>',views.class_Information,name="class_Information"),
     path('class_manage/',views.class_manage,name="class_manage"),
@@ -33,6 +35,8 @@ urlpatterns = [
 
     path('addStudent/', views.addStudent, name='addStudent'),
     path('addTeacher/', views.addTeacher, name='addTeacher'),
+    path('addTeacher/', views.addTeacher, name='addTeacher'),
+
 
     path('reset_password/',
         auth_views.PasswordResetView.as_view(template_name="password_reset.html"),

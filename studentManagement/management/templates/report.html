@@ -1,0 +1,49 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<style>
+    a{
+        margin-bottom : 10px
+    }
+</style>
+
+<link rel="stylesheet" href="{% static 'css\rules.css' %}">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-3 text-center mb-4">
+				<h2 class="heading-section">Report</h2>
+			</div>
+		</div>
+        
+		<div class="row">
+			<div class="col-md-12">
+				<div class="table-wrap">
+                    <div class="d-flex justify-content-center">
+                    <a href="/classSummary" class="btn btn-secondary btn-lg" role="button" aria-pressed="true">Class Report</a>
+                    </div>
+					<table class="table table-dark table-bordered table-hover">
+						<thead class="thead-primary">
+							<tr class="table-active text-center">
+								<th>Subject</th>
+                                <th>view report</th>
+							</tr>
+						</thead>
+                        {% for sub in subj %}
+						<tbody>
+							<tr class="alert text-center" role="alert">
+								<td>
+									{{sub.Name}}
+								</td>
+								<td>
+									<a class="btn btn-sm btn-info" href="{% url 'subjectSummary' sub.ID %}">Report</a>
+								</td>
+							</tr>
+						</tbody>
+                        {% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

@@ -5,12 +5,10 @@ import datetime
 from management.models import Subject,Mark, Year
 def createUserStudentID():
     now = datetime.datetime.now().year - 2000
-    print(now)
     if(Student.objects.last()):
         IDlast = int(Student.objects.last().ID[2:]) + 1
     else :
         IDlast = 1
-    print(IDlast)
     id = str(now) + str(IDlast)
     return id
 
@@ -62,3 +60,23 @@ def DefaultMark(ID):
     Rp2.save()
 
     return True
+
+def calculate_age(born):
+    today = datetime.date.today()
+    return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
+    
+def checkInfo(instance):
+    rule = Rule.objects.last()
+    if not instance.Birthday :
+        messages.error(request,'age is not suitable')
+        return False
+    age = calculate_age(instance.Birthday)
+    if age >= rule.MinAge and age <= rule.MaxAge : 
+        print(rule.MinAge)
+        print(rule.MaxAge)
+        return True
+        
+        
+    return False
+    
+    
