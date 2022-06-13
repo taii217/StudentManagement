@@ -2,7 +2,7 @@ from dataclasses import field
 from pyexpat import model
 from django import forms
 from django.forms import ModelForm
-from .models import Mark, Rule, Student, Teacher, Class
+from .models import Mark, Rule, Student, Subject, Teacher, Class
 
 
 class MarkForm(ModelForm):
@@ -28,7 +28,7 @@ class classForm(ModelForm):
     class Meta:
         model = Class
         fields = '__all__'
-        exclude = []
+        exclude = ['Quantity']
 
 class teacherForm(ModelForm):
     class Meta:
@@ -36,6 +36,10 @@ class teacherForm(ModelForm):
         fields = '__all__'
         exclude = ['ID']
 
+class subjectForm(ModelForm):
+    class Meta:
+        model = Subject
+        fields = '__all__'
 
 class RuleForm(ModelForm):
     class Meta:

@@ -1,11 +1,7 @@
 {% extends 'main.html' %}
 {% load static %}
 {% block content %}
-{% comment %} <form action="" method="POST">
-	{% csrf_token %}
-	{{form}}
-	<input type="submit" name="Submit">
-</form> {% endcomment %}
+
 
 <form action="" method="POST">
 	{% csrf_token %}
@@ -14,13 +10,9 @@
 			<div class="card card-body">
 				<table class="table">
 					<tr>
-						
 						<th>SubjectID</th>
-						
 					</tr>
-	
 					<tr>
-						
 						<td>{{form.SubjectID}}</td>
 
 					</tr>
