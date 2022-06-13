@@ -67,16 +67,22 @@ def calculate_age(born):
     
 def checkInfo(instance):
     rule = Rule.objects.last()
-    if not instance.Birthday :
-        messages.error(request,'age is not suitable')
+    cl = Class.objects.get(ID = instance.Classname)
+    if cl.Quantity >= rule.MaxQuantity :
         return False
+    if not instance.Birthday:
+        return False
+    
     age = calculate_age(instance.Birthday)
-    if age >= rule.MinAge and age <= rule.MaxAge : 
-        print(rule.MinAge)
-        print(rule.MaxAge)
+    if age >= rule.MinAge and age <= rule.MaxAge :
+        cl.save()
         return True
-        
-        
     return False
+
+def updateQuantity(Classname):
+    cl = Class.objects.get(ID = Classname)
+    cl.Quantity +=1
+    cl.save()
+
     
     

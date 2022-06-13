@@ -275,12 +275,15 @@ def addStudent(request):
         form = studentForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
-            if checkInfo(instance):
+            if not checkInfo(instance):
+                messages.error(request,'age is not suitable or class is Maxstudent')
+            else :
                 Email = form.cleaned_data.get('Email')
                 user = get_user_model().objects.create_user(username=usern,email=Email,password=passd)
                 group.user_set.add(user)
                 instance.user = user
                 instance.ID = ID
+                updateQuantity(instance.Classname)
                 instance.save()
                 messages.success(request,'Success create ' + usern)
                 DefaultMark(instance)
