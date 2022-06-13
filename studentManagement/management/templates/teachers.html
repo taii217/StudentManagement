@@ -9,6 +9,10 @@
 		<a href="/addTeacher" class="btn btn-dark float-end" role="button" aria-pressed="true">add teacher</a>
 	</div>
 	{% endif %}
+	<form method="get">
+		{{myFilter.form}}
+		<button type="submit" class="btn btn-outline-primary">Search</button>
+	  </form>
 	<div class="col-md">
 		<h5>TEACHERS:</h5>
 		<div class="card card-body">

@@ -12,7 +12,11 @@ class StudentFilter(django_filters.FilterSet):
     class Meta:
         model = Student
         fields =['ID','Classname','FirstName','LastName']
-
+        
+class TeacherFilter(django_filters.FilterSet):
+    class Meta:
+        model = Teacher
+        fields =['ID','FirstName','LastName']
     # def my_custom_filter(self, queryset, name, value):
     #    return queryset.filter(**{
     #         name: value,

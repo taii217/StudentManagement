@@ -15,7 +15,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User,Group
 # Create your views here.
 from .forms import MarkForm, RuleForm, studentForm, teacherForm,classForm,subjectForm
-from .filters import ClassFilter, StudentFilter
+from .filters import ClassFilter, StudentFilter,TeacherFilter
 
 def register(request):
     context = {}
@@ -78,8 +78,10 @@ def teacher(request,pk):
 @login_required(login_url='login')
 @admin_only
 def teachers(request):
-    teachers=Teacher.objects.all().order_by('ID') 
-    context={'teachers':teachers}
+    teachers=Teacher.objects.all()
+    myFilter = TeacherFilter(request.GET, queryset=teachers)
+    teachers=myFilter.qs
+    context={'teachers':teachers,'myFilter': myFilter}
     return render(request,'teachers.html',context) 
 
 @login_required(login_url='login')
