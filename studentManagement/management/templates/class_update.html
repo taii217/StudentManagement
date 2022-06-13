@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+{% comment %} <form action="" method="POST">
+	{% csrf_token %}
+	{{form}}
+	<input type="submit" name="Submit">
+</form> {% endcomment %}
+
+<form action="" method="POST">
+	{% csrf_token %}
+	<div class="col-md">
+		<h5>CLASS:</h5>
+			<div class="card card-body">
+				<table class="table">
+					<tr>
+						<th>Class</th>
+						<th>Head Teacher</th>
+						<th>School year</th>
+					</tr>
+					<tr>
+						<td>{{form.ID}}</td>
+						<td>{{form.HeadTeacher}}</td>
+						<td>{{form.school_year}}</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<input type="submit" name="Submit">
+	{% for message in messages %}
+		<p id="messages">{{message}}</p>
+  	{% endfor %}
+</form>
+{{form.errors}}
+{% endblock %}

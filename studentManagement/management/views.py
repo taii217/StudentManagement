@@ -236,6 +236,25 @@ def class_Information(request, pk):
 
     context={'class1':class1,'students':students}
     return render(request, 'classInfor.html', context)
+@login_required(login_url='login')
+def class_update(request, pk):
+    cla=Class.objects.get(ID=pk)
+    form=classForm(instance=cla)
+
+    classID=cla.ID
+    if request.method == 'POST':
+        form=classForm(request.POST,instance=cla)
+        if form.is_valid(): 
+            form.cleaned_data.get('ID')
+            form.cleaned_data.get('HeadTeacher')
+
+            form.save()
+            messages.success(request,'update '+str(classID)+' successfully')
+            
+            return redirect('/class_update/'+ str(classID))
+    context={'form':form}
+    return render(request, 'class_update.html', context)
+
 
 @login_required(login_url='login')
 def class_manage(request):
