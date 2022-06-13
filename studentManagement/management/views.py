@@ -325,18 +325,47 @@ def addClass(request):
         form = classForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
-            ID = form.cleaned_data.get('ID')
             
-            instance.ID = ID
             instance.save()
-            
-            messages.success(request,'Success create ' + ID)
+
+            messages.success(request,'Success create ' + instance.ID)
 
             return HttpResponseRedirect(request.path_info)
     
     context ={'form':form}
     
     return render(request,'addClass.html',context)
+
+
+@login_required(login_url='login')
+@admin_only
+def change_name_subjects(request):
+    # mark = Mark.objects.get(id=id,semester = se,year_school = Year.objects.last())
+    # form = MarkForm(instance=mark)
+    # studentID_ = mark.StudentID
+    # year_ = mark.year_school
+    # sem_ = mark.semester
+    # Rp = Report_Class.objects.get(StudentID = studentID_,year_school = year_ ,semester = sem_)
+    # if request.method == 'POST':
+    #     form = MarkForm(request.POST, instance=mark)
+    #     if form.is_valid(): 
+    #         mark_condition1 = form.cleaned_data.get('Mark15')
+    #         mark_condition2 = form.cleaned_data.get('Mark60') 
+    #         mark_condition3 = form.cleaned_data.get('MarkFinal') 
+    #         if isMarkValid(mark_condition1) and isMarkValid(mark_condition2) and isMarkValid(mark_condition3) :
+    #             form.save()
+    #             mt = Mark.objects.filter(StudentID = studentID_,year_school = year_,semester = sem_)
+    #             #update report
+    #             Rp.mark = ave_mark(mt)
+    #             Rp.save()
+    #             return redirect('/grade/'+ str(studentID_))
+    #         else:
+    #             messages.error(request,'Error : Mark <= 10 and > 0')
+
+    # context = {'form':form}
+    context ={}
+    return render(request,'change_name_subjects.html',context)
+
 # def do(request):
 #     teacher = Student.objects.last()
 #     teacher.delete()

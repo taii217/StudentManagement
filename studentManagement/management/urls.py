@@ -10,6 +10,7 @@ urlpatterns = [
     
     path('rules/',views.rules,name="rules"),
     path('change_rules/',views.change_rules,name="change_rules"),
+    path('change_name_subjects/',views.change_name_subjects,name="change_name_subjects"),
 
     path('student/<str:pk>',views.student,name="student"),
     path('students/',views.students,name="students"),

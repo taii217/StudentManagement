@@ -1,0 +1,37 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+{% comment %} <form action="" method="POST">
+	{% csrf_token %}
+	{{form}}
+	<input type="submit" name="Submit">
+</form> {% endcomment %}
+
+<form action="" method="POST">
+	{% csrf_token %}
+	<div class="col-md">
+		<h5>SUBJECTS:</h5>
+			<div class="card card-body">
+				<table class="table">
+					<tr>
+						
+						<th>SubjectID</th>
+						
+					</tr>
+	
+					<tr>
+						
+						<td>{{form.SubjectID}}</td>
+
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<input type="submit" name="Submit">
+	{% for message in messages %}
+		<p id="messages">{{message}}</p>
+  	{% endfor %}
+</form>
+{{form.errors}}
+{% endblock %}
