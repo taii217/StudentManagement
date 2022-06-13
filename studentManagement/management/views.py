@@ -1,7 +1,6 @@
 import email
 from multiprocessing import context
 from pydoc import classname
-from tkinter import SE
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
