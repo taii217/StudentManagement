@@ -207,19 +207,14 @@ def subjectSummary(request,subjectID):
         for n,m in zip(mark1,mark2) :
             rp1 = ((n.Mark15 or 0) + (n.Mark60 or 0)*2  + (n.MarkFinal or 0 )*3)/6
             rp2 = ((m.Mark15 or 0) + (m.Mark60 or 0)*2  + (m.MarkFinal or 0 )*3)/6
-            print(rp1)
             if is_pass_GPA(rp1): 
-                print(1)
                 cl.numPass +=1
             if is_pass_GPA(rp2): 
-                print(1)
                 cl2.numPass +=1
     
         if cl.Quantity == 0 : 
             cl.rate , cl2.rate = 0,0
-            print(2)
         else : 
-            print(3)
             cl.rate = round(cl.numPass / cl.Quantity * 100,2)
             cl2.rate = round(cl2.numPass / cl2.Quantity * 100,2)
 
@@ -280,14 +275,18 @@ def addStudent(request):
         form = studentForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
-            Email = form.cleaned_data.get('Email')
-            user = get_user_model().objects.create_user(username=usern,email=Email,password=passd)
-            group.user_set.add(user)
-            instance.user = user
-            instance.ID = ID
-            instance.save()
-            messages.success(request,'Success create ' + usern)
-            DefaultMark(instance)
+            if not checkInfo(instance):
+                messages.error(request,'age is not suitable or class is Maxstudent')
+            else :
+                Email = form.cleaned_data.get('Email')
+                user = get_user_model().objects.create_user(username=usern,email=Email,password=passd)
+                group.user_set.add(user)
+                instance.user = user
+                instance.ID = ID
+                updateQuantity(instance.Classname)
+                instance.save()
+                messages.success(request,'Success create ' + usern)
+                DefaultMark(instance)
             return HttpResponseRedirect(request.path_info)
     context ={'form':form}
     return render(request,'addStudent.html',context)
@@ -365,6 +364,13 @@ def change_name_subjects(request):
     # context = {'form':form}
     context ={}
     return render(request,'change_name_subjects.html',context)
+
+@groups_only('Admin','Teachers')
+def report(request):
+    sub = Subject.objects.all()
+    context = {'subj':sub}
+    return render(request,'report.html',context)
+
 
 # def do(request):
 #     teacher = Student.objects.last()

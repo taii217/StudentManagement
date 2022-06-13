@@ -1,23 +1,26 @@
 {% extends 'main.html' %}
 {% block content %}
-
-<div class="row">
-	<div class="col-md">
+<div class="container">
+<div class="row d-flex justify-content-center">
+	<div class="col-md-3">
 		<div class="card card-body">
 			<h5>Student Information</h5>
-			<p>ID: {{student.ID}} </p>
-			<p>Classname: {{student.Classname}} </p>
-			<p>FirstName: {{student.FirstName}} </p>
-			<p>Gender: {{student.Gender}} </p>
-			<p>Email: {{student.Email}} </p>
-			<p>LastName: {{student.LastName}} </p>
-			<p>Birthday: {{student.Birthday}} </p>
-			<p>Address: {{student.Address}} </p>
+			<p>ID: {{student.ID}}</p>
+			<p>Classname: {{student.Classname}}</p>
+			<p>FirstName: {{student.FirstName}}</p>
+			<p>Gender: {{student.Gender}}</p>
+			<p>Email: {{student.Email}}</p>
+			<p>LastName: {{student.LastName}}</p>
+			<p>Birthday: {{student.Birthday}}</p>
+			<p>Address: {{student.Address}}</p>
+		</div>
+		<div class="row">
+			<p class=""></P>
+			<a href="{% url 'students'  %}" class="btn btn-dark btn-lg float-end" role="button" aria-pressed="true" style="margin-right : 10px">Back</a>
 		</div>
 	</div>
+	
 </div>
-<div>
-	<p></P>
-	<a href="{% url 'students'  %}" class="btn btn-dark btn-lg float-end" role="button" aria-pressed="true" style="margin-right : 10px">Back</a>
 </div>
+
 {% endblock  %}
