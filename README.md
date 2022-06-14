@@ -4,7 +4,7 @@ CNPM - lab final
 ## 1.Introduce
 **STUDENT MANAGEMENT** is an web application for schools manage their students and teachers,etc..
 
-**Public app**: https://student-management-g13.herokuapp.com/
+**Public app**: https://student-management-g113.herokuapp.com/
 
 ## 2. Database info
 
