@@ -69,20 +69,52 @@ def checkInfo(instance):
     rule = Rule.objects.last()
     cl = Class.objects.get(ID = instance.Classname)
     if cl.Quantity >= rule.MaxQuantity :
-        return False
+        mes = 'Quantity is max' 
+        return False,mes
     if not instance.Birthday:
-        return False
+        mes = 'Birthday is empty' 
+        return False,mes
     
     age = calculate_age(instance.Birthday)
     if age >= rule.MinAge and age <= rule.MaxAge :
-        cl.save()
-        return True
-    return False
+        mes = 'Success create' 
+        return True,mes
+    mes = 'Your age is not suitable' 
+    return False,mes
 
 def updateQuantity(Classname):
     cl = Class.objects.get(ID = Classname)
     cl.Quantity +=1
     cl.save()
 
+def DefaultMarkNew(instance):
+    subject = Subject.objects.get(ID = instance.ID)
+    stu = Student.objects.all()
+    year = Year.objects.last()
+    s1 = Semeter.objects.first()
+    s2 = Semeter.objects.last()
+    
+    for st in stu:
+        mark = Mark.objects.create()
+        mark.Mark15 = 0
+        mark.Mark60 = 0
+        mark.MarkFinal = 0
+        mark.semester = s1
+        mark.year_school = year
+        mark.StudentID = st
+        mark.SubjectID = subject
+        mark.save()
+
+        mark2 = Mark.objects.create()
+        mark2.Mark15 = 0
+        mark2.Mark60 = 0
+        mark2.MarkFinal = 0
+        mark2.semester = s2
+        mark2.year_school = year
+        mark2.StudentID = st
+        mark2.SubjectID = subject
+        mark2.save()
+        
+    return True
     
     

@@ -1,4 +1,5 @@
 import email
+from email.policy import default
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -64,7 +65,10 @@ def change_rules(request):
         rule.ClassNumber = request.POST.get('NumGrades')
         rule.SubjectNumber = request.POST.get('NumSubject')
         rule.PassMark = request.POST.get('GPA')
-        rule.save()
+        if rule.MinAge > rule.MaxAge :
+            messages.error(request,'Error : MinAge > MaxAge')
+        else :
+            rule.save()
         return redirect('/rules')
     context = {'rule':rule}
     return render(request,'changeRules.html',context)
@@ -102,8 +106,6 @@ def students(request):
     for s in students:
         s.rp1 = round(Report_Class.objects.get(StudentID = s.ID,semester = 1,year_school = year).mark,2)
         s.rp2 = round(Report_Class.objects.get(StudentID = s.ID,semester = 2,year_school = year).mark,2)
-
-    
     context={'students':students,'myFilter': myFilter}
 
     return render(request,'students.html',context) 
@@ -256,6 +258,7 @@ def class_update(request, pk):
 
 
 @login_required(login_url='login')
+@groups_only('Admin','Teachers')
 def class_manage(request):
     Classes = Class.objects.all()
     #Years = Year.objects.all()
@@ -296,8 +299,9 @@ def addStudent(request):
         form = studentForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
-            if not checkInfo(instance):
-                messages.error(request,'age is not suitable or class is Maxstudent')
+            check,mes = checkInfo(instance)
+            if not check:
+                messages.error(request,mes)
             else :
                 Email = form.cleaned_data.get('Email')
                 user = get_user_model().objects.create_user(username=usern,email=Email,password=passd)
@@ -306,7 +310,7 @@ def addStudent(request):
                 instance.ID = ID
                 updateQuantity(instance.Classname)
                 instance.save()
-                messages.success(request,'Success create ' + usern)
+                messages.success(request,mes + usern)
                 DefaultMark(instance)
             return HttpResponseRedirect(request.path_info)
     context ={'form':form}
@@ -374,8 +378,14 @@ def addSubject(request):
     if request.method == 'POST':
         form = subjectForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('subjects')
+            if not checkInfoSubject():
+                messages.error(request,'Maximun subject')
+            else :
+                instance = form.save(commit=False)
+                instance.save()
+                DefaultMarkNew(instance)
+                messages.success(request,'Success create ' + instance.Name)
+                return redirect('subjects')
     context ={'form':form}
     return render(request,'addSubject.html',context)
 

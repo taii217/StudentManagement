@@ -15,7 +15,7 @@
 			</div>
 			<div class="">
 			{% if request.user.is_staff %}
-				<a href="/addTeacher" class="btn btn-dark float-end" role="button" aria-pressed="true">add subject</a>
+				<a href="{% url 'addSubject' %}" class="btn btn-dark float-end" role="button" aria-pressed="true">add subject</a>
 			{% endif %}
 			</div>
 		</div>
