@@ -8,7 +8,7 @@ CNPM - lab final
 
 ## 2. Database info
 
-**Server:** student-management-g13.database.windows.net
+**Server:** student-management-g113.database.windows.net
 
 **Database:** StudentManagement
 
@@ -40,7 +40,7 @@ http://127.0.0.1:8000
 ```
 ###  5. Login by admin
 ```sh
-username : admin
+username : adm
 passwork : 1
 ```
 
