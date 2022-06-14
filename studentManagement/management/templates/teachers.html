@@ -2,19 +2,20 @@
 {% block content %}
 <style>
 </style>
+<div class="container">
 <div class="row">
-	{% if request.user.is_staff %}
-	<div>
-		<p></P>
-		<a href="/addTeacher" class="btn btn-dark float-end" role="button" aria-pressed="true">add teacher</a>
-	</div>
-	{% endif %}
+	<h1>Teacher List</h1>
+	
 	<form method="get">
-		{{myFilter.form}}
-		<button type="submit" class="btn btn-outline-primary">Search</button>
-	  </form>
+		<div style="margin-bottom:10px">
+			{{myFilter.form}}
+			<button type="submit" class="btn btn-outline-primary">Search</button>
+			{% if request.user.is_staff %}
+			<a href="/addTeacher" class="btn btn-dark float-end" role="button" aria-pressed="true">add teacher</a>
+			{% endif %}
+		</div>
+	</form>
 	<div class="col-md">
-		<h5>TEACHERS:</h5>
 		<div class="card card-body">
 			<table class="table">
 				<tr>
@@ -46,4 +47,6 @@
 		</div>
 	</div>
 </div>
+</div>
+
 {% endblock %}

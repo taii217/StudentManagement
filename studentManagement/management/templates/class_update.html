@@ -6,7 +6,8 @@
 	{{form}}
 	<input type="submit" name="Submit">
 </form> {% endcomment %}
-
+<div class="container">
+<div class="row">
 <form action="" method="POST">
 	{% csrf_token %}
 	<div class="col-md">
@@ -16,12 +17,10 @@
 					<tr>
 						<th>Class</th>
 						<th>Head Teacher</th>
-						<th>School year</th>
 					</tr>
 					<tr>
 						<td>{{form.ID}}</td>
 						<td>{{form.HeadTeacher}}</td>
-						<td>{{form.school_year}}</td>
 					</tr>
 				</table>
 			</div>
@@ -32,5 +31,7 @@
 		<p id="messages">{{message}}</p>
   	{% endfor %}
 </form>
+</div>
+</div>
 {{form.errors}}
 {% endblock %}

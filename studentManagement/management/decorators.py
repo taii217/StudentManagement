@@ -31,9 +31,9 @@ def admin_only(view_func):
             group = request.user.groups.all()[0].name
         if group =='Students':
             id = Student.objects.get(user = request.user).ID
-            return redirect("student/" + str(id))
+            return redirect("grade/" + str(id))
         if group =='Teachers':
-            return redirect('students')
+            return redirect('class_manage')
 
         if group =='Admin':
             return view_func(request,*args,**kwargs)

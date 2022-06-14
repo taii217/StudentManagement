@@ -1,16 +1,17 @@
 {% extends 'main.html' %}
 {% block content %}
+<div class="container">
 <div class="row">
-	{% if request.user.is_staff %}
-	<div>
-		<p></P>
-		<a href="/addStudent" class="btn btn-dark  float-end" role="button" aria-pressed="true">add student</a>
-	</div>
-	{% endif %}
+	<h1>Student List</h1>
 	<form method="get">
-		{{myFilter.form}}
-		<button type="submit" class="btn btn-outline-primary">Search</button>
-	  </form>
+		<div style="margin-bottom:10px">
+			{{myFilter.form}}
+			<button type="submit" class="btn btn-outline-primary">Search</button>
+			{% if request.user.is_staff %}
+			<a href="/addStudent" class="btn btn-dark  float-end" role="button" aria-pressed="true">add student</a>
+			{% endif %}
+		</div>
+	</form>
 	<div class="col-md">
 		<h5>STUDENTS:</h5>
 		
@@ -41,4 +42,6 @@
 		</div>
 	</div>
 </div>
+</div>
+
 {% endblock %}

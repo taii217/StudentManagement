@@ -6,6 +6,7 @@
 	{{form}}
 	<input type="submit" name="Submit">
 </form> {% endcomment %}
+<div class="row">
 
 <form action="" method="POST">
 	{% csrf_token %}
@@ -35,10 +36,11 @@
 			</div>
 		</div>
 	</div>
-	<input type="submit" name="Submit">
+	<input type="submit" class="float-end" name="Submit" style="margin-top:10px">
 	{% for message in messages %}
 		<p id="messages">{{message}}</p>
   	{% endfor %}
 </form>
+</div>
 {{form.errors}}
 {% endblock %}

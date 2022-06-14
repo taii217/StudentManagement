@@ -30,6 +30,12 @@ class classForm(ModelForm):
         fields = '__all__'
         exclude = ['Quantity']
 
+class updateClass(ModelForm):
+    class Meta:
+        model = Class
+        fields = '__all__'
+        exclude = ['Quantity','school_year']
+
 class teacherForm(ModelForm):
     class Meta:
         model = Teacher
@@ -40,6 +46,7 @@ class subjectForm(ModelForm):
     class Meta:
         model = Subject
         fields = '__all__'
+        exclude = []
 
 class RuleForm(ModelForm):
     class Meta:

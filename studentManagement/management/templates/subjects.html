@@ -1,0 +1,49 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+<style>
+    a{
+        margin-bottom : 10px
+    }
+</style>
+
+<link rel="stylesheet" href="{% static 'css\rules.css' %}">
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-3 text-center mb-4">
+				<h2 class="heading-section">Subject LIST</h2>
+			</div>
+			<div class="">
+			{% if request.user.is_staff %}
+				<a href="/addTeacher" class="btn btn-dark float-end" role="button" aria-pressed="true">add subject</a>
+			{% endif %}
+			</div>
+		</div>
+			
+		<div class="row">
+			<div class="col-md-12">
+				<div class="table-wrap">
+					<table class="table table-dark table-bordered table-hover">
+						<thead class="thead-primary">
+							<tr class="table-active text-center">
+								<th>Subject</th>
+                                <th>Update</th>
+							</tr>
+						</thead>
+                        {% for sub in subj %}
+						<tbody>
+							<tr class="alert text-center" role="alert">
+								<td>
+									{{sub.Name}}
+								</td>
+								<td><a class="btn btn-sm btn-info" href="{% url 'change_name_subjects' sub.ID %}">change name</a></td>
+							</tr>
+						</tbody>
+                        {% endfor %}
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+

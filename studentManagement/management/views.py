@@ -1,6 +1,4 @@
 import email
-from multiprocessing import context
-from pydoc import classname
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 
@@ -8,14 +6,17 @@ from .report import *
 from .createUser import *
 from .models import *
 from .decorators import *
+from .forms import MarkForm, studentForm, teacherForm,classForm,subjectForm, updateClass
+from .filters import ClassFilter, StudentFilter,TeacherFilter
+from .createClass import *
 
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout,get_user_model
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User,Group
+from django.contrib.auth.models import Group
 # Create your views here.
-from .forms import MarkForm, RuleForm, studentForm, teacherForm,classForm,subjectForm
-from .filters import ClassFilter, StudentFilter,TeacherFilter
+
+
 
 def register(request):
     context = {}
@@ -118,6 +119,7 @@ def grade(request,pk):
     return render(request, 'grade.html', context)
  
 @login_required(login_url='login')
+@admin_only
 def create_grade(request,pk):
     # initial_dict = {
     #     "StudentID" : pk,
@@ -140,6 +142,7 @@ def create_grade(request,pk):
     return render(request, 'mark_form.html', context={})
 
 @login_required(login_url='login')
+@groups_only('Admin','Teachers')
 def update_grade(request, id,se):
     mark = Mark.objects.get(id=id,semester = se,year_school = Year.objects.last())
     form = MarkForm(instance=mark)
@@ -167,6 +170,7 @@ def update_grade(request, id,se):
     return render(request, 'update_mark.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def remove_grade(request, pk):
     grade = Mark.objects.get(id=pk)
     studentID = grade.StudentID
@@ -236,22 +240,17 @@ def class_Information(request, pk):
 
     context={'class1':class1,'students':students}
     return render(request, 'classInfor.html', context)
+    
 @login_required(login_url='login')
+@admin_only
 def class_update(request, pk):
     cla=Class.objects.get(ID=pk)
-    form=classForm(instance=cla)
-
-    classID=cla.ID
+    form=updateClass(instance=cla)
     if request.method == 'POST':
-        form=classForm(request.POST,instance=cla)
+        form=updateClass(request.POST,instance=cla)
         if form.is_valid(): 
-            form.cleaned_data.get('ID')
-            form.cleaned_data.get('HeadTeacher')
-
-            form.save()
-            messages.success(request,'update '+str(classID)+' successfully')
-            
-            return redirect('/class_update/'+ str(classID))
+            instance = form.save()
+            return redirect('class_manage')
     context={'form':form}
     return render(request, 'class_update.html', context)
 
@@ -268,6 +267,7 @@ def class_manage(request):
     return render(request, 'classManage.html', context)
 
 @login_required(login_url='login')
+@admin_only
 def delete_class(request, pk):
     class1=Class.objects.get(ID=pk)
     if request.method == 'POST':
@@ -340,40 +340,57 @@ def addTeacher(request):
 @admin_only
 def addClass(request):
     form = classForm()
-
     if request.method == 'POST':
         form = classForm(request.POST)
         if form.is_valid():
             instance = form.save(commit=False)
-            
-            instance.save()
-
-            messages.success(request,'Success create ' + instance.ID)
-            return HttpResponseRedirect(request.path_info)
-    
+            if not checkInfoClass(instance):
+                messages.error(request,'Class ID is not Suitable')
+            else :
+                instance.save()
+                messages.success(request,'Success create ' + instance.ID)
+                return HttpResponseRedirect(request.path_info)
     context ={'form':form}
     
     return render(request,'addClass.html',context)
 
-
 @login_required(login_url='login')
 @admin_only
-def change_name_subjects(request):
-    subject=Subject.objects.all()
-    form = subjectForm()
+def change_name_subjects(request,id):
+    sub = Subject.objects.get(ID = id)
+    form = subjectForm(instance=sub)
     if request.method == 'POST':
-        form = subjectForm(request.POST,instance=subject)
+        form = subjectForm(request.POST,intance = sub)
         if form.is_valid():
+            form.save()
             return HttpResponseRedirect(request.path_info)
     context ={'form':form}
     return render(request,'change_name_subjects.html',context)
 
-@groups_only('Admin','Teachers')
+@login_required(login_url='login')
+@admin_only
+def addSubject(request):
+    form = subjectForm()
+    if request.method == 'POST':
+        form = subjectForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('subjects')
+    context ={'form':form}
+    return render(request,'addSubject.html',context)
+
+@login_required(login_url='login')
 def report(request):
     sub = Subject.objects.all()
     context = {'subj':sub}
     return render(request,'report.html',context)
 
+@login_required(login_url='login')
+@admin_only
+def subjects(request):
+    sub = Subject.objects.all()
+    context = {'subj':sub}
+    return render(request,'subjects.html',context)
 
 # def do(request):
 #     teacher = Student.objects.last()
