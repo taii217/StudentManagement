@@ -38,7 +38,7 @@ class Teacher(models.Model):
 
 class Class(models.Model):
     ID = models.CharField(max_length=10, primary_key=True)
-    Quantity = models.IntegerField(null=True, blank=True, default=33)
+    Quantity = models.IntegerField(null=True, blank=True, default=0)
     HeadTeacher = models.ForeignKey(Teacher, null=True, on_delete=models.CASCADE)
     #More = models.CharField(max_length=50, null=True, blank=True)
     school_year = models.ForeignKey(Year, on_delete=models.CASCADE, null=True)
